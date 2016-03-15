@@ -1,0 +1,40 @@
+#' makeIncucyteDRCSet
+#'
+#' Function to construct an IncucyteDRCSet object.  Contains data for just those wells that are from the
+#'  same cell line background - ie cell line, passage number, cell number etc are all the same.  Give that the
+#'  same cell line background is used, the control wells are common to all wells regardless of different
+#'  compounds or concentrations of compound.
+#'
+#' @param platemap Platemap dataframe containing information for just those wells required
+#' @param platedata IncucyteDRCPlateData object that will be filtered according to the wells present in
+#'  the platemap
+#' @param cut_time The time at which to extract the data for the dose response curve.  Default is NULL.
+#'
+#' @return IncucyteDRCSet object
+#' @export
+#'
+#' @examples
+#' test_pm <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
+#' test_data <- importIncucyteData(system.file(file='extdata/example_data.txt', package='IncucyteDRC'), metric='pc')
+#'
+#' test_pm_filtered <-  dplyr::filter(test_pm, samptype %in% c('C', 'S') & growthcondition == '8 x 10e4/mL')
+#' test_set <- makeIncucyteDRCSet(test_pm_filtered, test_data)
+#'
+#' str(test_set)
+
+
+makeIncucyteDRCSet <- function(platemap, platedata, cut_time=NULL) {
+
+    stopifnot(class(platedata) == 'IncucyteDRCPlateData')
+
+    platedata$data <- platedata$data %>% dplyr::filter(wellid %in% platemap$wellid) %>% as.data.frame()
+
+    outdata <- list(platemap=as.data.frame(platemap),
+                    platedata=platedata,
+                    cut_time=cut_time)
+
+    class(outdata) <- 'IncucyteDRCSet'
+
+    return(outdata)
+
+}

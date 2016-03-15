@@ -14,7 +14,7 @@ importIncucyteData(filepath, metric = "pc", plateid = basename(filepath))
 \item{plateid}{An identifier for the plate.  If set to NULL then filename used as default}
 }
 \value{
-IncucyteDRCPlate object
+IncucyteDRCPlateData object
 }
 \description{
 Imports data exported from Incucyte Zoom software-  NEED MORE DOCUMENTATION HERE ABOUT HOW TO DO EXPORT!!

@@ -11,8 +11,8 @@
 #' @export
 #'
 #' @examples
-#' test_df <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
-#' head(test_df)
+#' test_pm <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
+#' head(test_pm)
 importPlatemapXML <- function(filepath, control_cpd='DMSO') {
     message(sprintf("Importing platemap xml from %s",filepath))
     platemap_xml <- XML::xmlTreeParse(filepath)

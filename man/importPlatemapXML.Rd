@@ -19,7 +19,7 @@ Imports .Platemap XML files from Incucyte Zoom software and extracts information
 GrowthCondition and CellType fields.
 }
 \examples{
-test_df <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
-head(test_df)
+test_pm <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
+head(test_pm)
 }
 

@@ -2,4 +2,6 @@
 
 export(importIncucyteData)
 export(importPlatemapXML)
+export(makeIncucyteDRCSet)
+export(splitIncucyteDRCPlateData)
 importFrom(magrittr,"%>%")
