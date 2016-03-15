@@ -8,13 +8,14 @@
 #' @export
 #'
 #' @examples
-#' 1+1
+#' test_df <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
+#' head(test_df)
 importPlatemapXML <- function(filepath) {
     message(sprintf("Importing platemap xml from %s",filepath))
-    platemap.xml <- xmlTreeParse(filepath)
+    platemap.xml <- XML::xmlTreeParse(filepath)
 
     #import the XML file
-    xml.top <- xmlRoot(platemap.xml[[1]])
+    xml.top <- XML::xmlRoot(platemap.xml[[1]])
     #reference the wellstore tree
     wellstore <- xml.top[[2]][[1]]
     #set up the output dataframe
@@ -23,8 +24,8 @@ importPlatemapXML <- function(filepath) {
     for (i in 1:length(wellstore)) {
         #print(i)
         w <- wellstore[i]
-        this.row <- xmlGetAttr(w[[1]],'row') #use xmlGetAttr to pull out relevant attributes for each well
-        this.col <- xmlGetAttr(w[[1]],'col')
+        this.row <- XML::xmlGetAttr(w[[1]],'row') #use xmlGetAttr to pull out relevant attributes for each well
+        this.col <- XML::xmlGetAttr(w[[1]],'col')
         #default values
         this.samptype <- 'B'
         this.sampleid <- '-'
@@ -35,23 +36,23 @@ importPlatemapXML <- function(filepath) {
         this.celltype_passage <- NA
         this.celltype_seedingdensity <- NA
 
-        if (xmlSize(w[[1]]) > 0) { #blanks don't have the rest of the xml tree, so detect this using xmlSize function
+        if (XML::xmlSize(w[[1]]) > 0) { #blanks don't have the rest of the xml tree, so detect this using xmlSize function
 
             this.samptype <- 'C'
             items <- w[[1]][[1]]
             for (k in 1:length(items)) {
                 j<- items[[k]]
-                if (xmlGetAttr(j, 'type') == 'Compound') {
+                if (XML::xmlGetAttr(j, 'type') == 'Compound') {
                     this.samptype <- 'S'
-                    this.sampleid <- xmlGetAttr(j[[1]], 'description')
-                    this.sampleconc <- xmlGetAttr(j, 'concentration')
-                    this.sampleconcunits <- xmlGetAttr(j, 'concentrationUnits')
-                } else if (xmlGetAttr(j, 'type') == 'GrowthCondition') {
-                    this.growthcondition <- xmlGetAttr(j[[1]], 'description')
-                }  else if (xmlGetAttr(j, 'type') == 'CellType') {
-                    this.celltype <- xmlGetAttr(j[[1]], 'description')
-                    this.celltype_passage <- xmlGetAttr(j, 'passage')
-                    this.celltype_seedingdensity <- xmlGetAttr(j, 'seedingDensity')
+                    this.sampleid <- XML::xmlGetAttr(j[[1]], 'description')
+                    this.sampleconc <- XML::xmlGetAttr(j, 'concentration')
+                    this.sampleconcunits <- XML::xmlGetAttr(j, 'concentrationUnits')
+                } else if (XML::xmlGetAttr(j, 'type') == 'GrowthCondition') {
+                    this.growthcondition <- XML::xmlGetAttr(j[[1]], 'description')
+                }  else if (XML::xmlGetAttr(j, 'type') == 'CellType') {
+                    this.celltype <- XML::xmlGetAttr(j[[1]], 'description')
+                    this.celltype_passage <- XML::xmlGetAttr(j, 'passage')
+                    this.celltype_seedingdensity <- XML::xmlGetAttr(j, 'seedingDensity')
                 }
             }
         }
@@ -82,7 +83,7 @@ importPlatemapXML <- function(filepath) {
     platemap.df$col <- platemap.df$col + 1
     platemap.df$wellid <- paste(LETTERS[platemap.df$row], platemap.df$col, sep='')
 
-    print('Plate map import successful!')
+    message('Plate map import successful!')
     return (platemap.df)
 
 }
