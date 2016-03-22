@@ -24,10 +24,16 @@ plotIncucyteDRCSet <- function(idrc_set) {
     #combine the platemap and data
     data <- idrc_set$platemap %>% dplyr::inner_join(idrc_set$platedata$data, by='wellid')
 
-    ggplot(data, aes(x=elapsed, y=value, colour=as.factor(round(conc, 3)))) +
-        geom_point() +
-        geom_line(data=idrc_set$fitted_data, aes(group=wellid)) +
-        scale_colour_discrete(name='conc') +
-        facet_wrap(~sampleid) + theme_bw()
+    out_plot <- ggplot(data, aes(x=elapsed, y=value, colour=as.factor(round(conc, 3)))) +
+                    geom_point() +
+                    geom_line(data=idrc_set$fitted_data, aes(group=wellid)) +
+                    scale_colour_discrete(name='conc') +
+                    facet_wrap(~sampleid) + theme_bw()
+
+    if(is.numeric(idrc_set$cut_time)) {
+        out_plot <- out_plot + geom_vline(xintercept=idrc_set$cut_time, colour='blue', linetype='dashed')
+    }
+
+    return(out_plot)
 
 }

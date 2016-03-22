@@ -1,0 +1,59 @@
+#' extractDRCdata
+#'
+#' For a given cut time, extract data from the growth curves in a IncucyteDRCSet object
+#'
+#' @param idrc_set IncucyteDRCSet object
+#' @param cut_time Desired cut time.  If NULL will use the cut_time in the IncucyteDRCSet object (if set)
+#'
+#' @return IncucyteDRCSet object
+#' @export
+#'
+#' @examples
+#' test_pm <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
+#' test_data <- importIncucyteData(system.file(file='extdata/example_data.txt', package='IncucyteDRC'), metric='pc')
+#'
+#' test_list <- splitIncucyteDRCPlateData(test_pm, test_data, group_columns='growthcondition')
+#'
+#' str(test_list)
+#'
+#' test_splines <- fitIndividualSplines(test_list[[2]])
+#' plotIncucyteDRCSet(test_splines)
+#' test_drc <- extractDRCdata(test_splines, cut_time=100)
+#' names(test_drc)
+#' test_drc$drc_data
+#' plotIncucyteDRCSet(test_drc)
+#'
+extractDRCdata <- function(idrc_set, cut_time=NULL) {
+
+    if(is.null(idrc_set$cut_time) & is.null(cut_time)) {
+        stop('Set cut_time in IncucyteDRCSet or function parameter')
+    } else if (is.null(idrc_set$cut_time) & is.numeric(cut_time)) {
+        message('Using cut time provided to function')
+    } else if (is.numeric(idrc_set$cut_time) & is.null(cut_time)) {
+        message('Using cut time from IncucyteDRCSet object')
+        cut_time <- idrc_set$cut_time
+    } else if (is.numeric(idrc_set$cut_time) & is.numeric(cut_time)) {
+        warning('Using cut time provided to function and overriding cut time from IncucyteDRCSet object')
+    } else {
+        stop('Provide cut time as a numeric parameter')
+    }
+
+    if(is.null(idrc_set$fitted_models)) {
+        stop('Need to fit splines first using fitIndividualSplines')
+    }
+
+    #predict the value at the cut time using the splines
+    drc_data <- idrc_set$fitted_models %>%
+        dplyr::mutate(cut_val=predict(gc_model,cut_time),
+               cut_time=cut_time) %>%
+        dplyr::ungroup() %>%
+        dplyr::select(-gc_model) %>%
+        as.data.frame()
+
+    #construct the output object
+    output <- idrc_set
+    output$drc_data <- drc_data
+    output$cut_time <- cut_time
+    return(output)
+
+}
