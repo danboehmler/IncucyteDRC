@@ -24,7 +24,7 @@ fitIndividualSplines <- function(idrc_set) {
 
     #fit the splines
     fitted_models <- data %>%
-        dplyr::group_by(wellid, sampleid, conc) %>%
+        dplyr::group_by(wellid) %>%
         dplyr::do(gc_model=loess (value ~ elapsed  , ., span=0.3, control=loess.control(surface='direct')))
 
     #establish the data range
@@ -32,8 +32,10 @@ fitIndividualSplines <- function(idrc_set) {
 
     #generate the fitted data for plotting
     fitted_data <- fitted_models %>%
-        dplyr::do(data.frame(value=predict(.$gc_model, data_range), elapsed=data_range, wellid=.$wellid, sampleid=.$sampleid, conc=.$conc, stringsAsFactors=FALSE)) %>%
+        dplyr::do(data.frame(value=predict(.$gc_model, data_range), elapsed=data_range, wellid=.$wellid, stringsAsFactors=FALSE)) %>%
         dplyr::ungroup() %>%
+        dplyr::inner_join(idrc_set$platemap, by='wellid') %>%
+        dplyr::select(wellid, sampleid, conc, samptype, concunits, value, elapsed) %>%
         as.data.frame()
 
     #construct the output object

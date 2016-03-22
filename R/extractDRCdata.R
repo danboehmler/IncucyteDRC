@@ -47,7 +47,8 @@ extractDRCdata <- function(idrc_set, cut_time=NULL) {
         dplyr::mutate(cut_val=predict(gc_model,cut_time),
                cut_time=cut_time) %>%
         dplyr::ungroup() %>%
-        dplyr::select(-gc_model) %>%
+        dplyr::inner_join(idrc_set$platemap, by='wellid') %>%
+        dplyr::select(wellid, sampleid, conc, samptype, concunits, cut_time, cut_val) %>%
         as.data.frame()
 
     #construct the output object
