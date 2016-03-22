@@ -2,6 +2,7 @@
 
 export(calculateCutTime)
 export(extractDRCdata)
+export(fitGroupSplines)
 export(fitIndividualSplines)
 export(importIncucyteData)
 export(importPlatemapXML)

@@ -17,18 +17,25 @@
 #' str(test_list)
 #'
 #' test_splines <- fitIndividualSplines(test_list[[2]])
-#' plotIncucyteDRCSet(test_splines)
+#' test_splines <- fitGroupSplines(test_splines)
+#' plotIncucyteDRCSet(test_splines, grouped=FALSE)
+#' plotIncucyteDRCSet(test_splines, grouped=TRUE)
 #'
-plotIncucyteDRCSet <- function(idrc_set) {
+plotIncucyteDRCSet <- function(idrc_set, grouped=FALSE) {
 
     #combine the platemap and data
     data <- idrc_set$platemap %>% dplyr::inner_join(idrc_set$platedata$data, by='wellid')
 
     out_plot <- ggplot(data, aes(x=elapsed, y=value, colour=as.factor(round(conc, 3)))) +
                     geom_point() +
-                    geom_line(data=idrc_set$fitted_data, aes(group=wellid)) +
                     scale_colour_discrete(name='conc') +
                     facet_wrap(~sampleid) + theme_bw()
+
+    if(grouped) {
+        out_plot <- out_plot + geom_line(data=idrc_set$fitted_data_grouped, aes(group=paste0(sampleid, conc)))
+    } else {
+        out_plot <- out_plot + geom_line(data=idrc_set$fitted_data_indiv, aes(group=wellid))
+    }
 
     if(is.numeric(idrc_set$cut_time)) {
         out_plot <- out_plot + geom_vline(xintercept=idrc_set$cut_time, colour='blue', linetype='dashed')

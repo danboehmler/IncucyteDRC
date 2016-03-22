@@ -38,12 +38,12 @@ extractDRCdata <- function(idrc_set, cut_time=NULL) {
         stop('Provide cut time as a numeric parameter')
     }
 
-    if(is.null(idrc_set$fitted_models)) {
+    if(is.null(idrc_set$fitted_models_indiv)) {
         stop('Need to fit splines first using fitIndividualSplines')
     }
 
     #predict the value at the cut time using the splines
-    drc_data <- idrc_set$fitted_models %>%
+    drc_data <- idrc_set$fitted_models_indiv %>%
         dplyr::mutate(cut_val=predict(gc_model,cut_time),
                cut_time=cut_time) %>%
         dplyr::ungroup() %>%

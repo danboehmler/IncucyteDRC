@@ -31,8 +31,10 @@ test_list <- splitIncucyteDRCPlateData(test_pm, test_data, group_columns='growth
 
 str(test_list)
 
-test_splines <- fitIndividualSplines(test_list[[2]])
-plotIncucyteDRCSet(test_splines)
-
+test_splines <- fitGroupSplines(test_list[[2]])
+plotIncucyteDRCSet(test_splines, grouped=TRUE)
+test_cut <- calculateCutTime(test_splines)
+plotIncucyteDRCSet(test_cut, grouped=TRUE)
+extractDRCdata(test_cut)
 }
 
