@@ -35,6 +35,6 @@ test_splines <- fitGroupSplines(test_list[[2]])
 plotIncucyteDRCSet(test_splines, grouped=TRUE)
 test_cut <- calculateCutTime(test_splines)
 plotIncucyteDRCSet(test_cut, grouped=TRUE)
-extractDRCdata(test_cut)
+calculateDRCdata(test_cut)
 }
 

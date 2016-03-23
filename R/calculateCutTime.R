@@ -23,10 +23,10 @@
 #' plotIncucyteDRCSet(test_splines, grouped=TRUE)
 #' test_cut <- calculateCutTime(test_splines)
 #' plotIncucyteDRCSet(test_cut, grouped=TRUE)
-#' extractDRCdata(test_cut)
+#' calculateDRCdata(test_cut)
 calculateCutTime <- function(idrc_set, baseline_time=24, no_doublings=4, max_val=80) {
 
-    if(is.null(idrc_set$fitted_models)) {
+    if(is.null(idrc_set$fitted_models_indiv)) {
         stop('Need to fit splines first using fitIndividualSplines')
     }
 

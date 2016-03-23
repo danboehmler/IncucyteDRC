@@ -1,6 +1,6 @@
-#' extractDRCdata
+#' calculateDRCdata
 #'
-#' For a given cut time, extract data from the growth curves in a IncucyteDRCSet object
+#' For a given cut time, calculate values from the growth curves in a IncucyteDRCSet object
 #'
 #' @param idrc_set IncucyteDRCSet object
 #' @param cut_time Desired cut time.  If NULL will use the cut_time in the IncucyteDRCSet object (if set)
@@ -18,12 +18,12 @@
 #'
 #' test_splines <- fitIndividualSplines(test_list[[2]])
 #' plotIncucyteDRCSet(test_splines)
-#' test_drc <- extractDRCdata(test_splines, cut_time=100)
+#' test_drc <- calculateDRCdata(test_splines, cut_time=100)
 #' names(test_drc)
 #' test_drc$drc_data
 #' plotIncucyteDRCSet(test_drc)
 #'
-extractDRCdata <- function(idrc_set, cut_time=NULL) {
+calculateDRCdata <- function(idrc_set, cut_time=NULL) {
 
     if(is.null(idrc_set$cut_time) & is.null(cut_time)) {
         stop('Set cut_time in IncucyteDRCSet or function parameter')
