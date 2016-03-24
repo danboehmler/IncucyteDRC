@@ -2,7 +2,10 @@
 
 export(calculateCutTime)
 export(calculateDRCdata)
+export(exportDRCtoDataFrame)
 export(exportDRCtoPRISM)
+export(exportEC50Data)
+export(fitDoseResponseCurve)
 export(fitGroupSplines)
 export(fitIndividualSplines)
 export(importIncucyteData)

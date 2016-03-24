@@ -1,6 +1,6 @@
-#' exportDRCtoPRISM
+#' exportDRCtoDataFrame
 #'
-#' Exports data in PRISM format for an IncucyteDRCSet
+#' Exports data into a standard data frame format for an IncucyteDRCSet
 #'
 #' @param idrc_set IncucyteDRCSet object
 #' @param include_control Whether to include control sample as zero conc control
@@ -20,13 +20,15 @@
 #' plotIncucyteDRCSet(test_splines)
 #' test_drc <- calculateDRCdata(test_splines, cut_time=100)
 #' plotIncucyteDRCSet(test_drc)
-#' exportDRCtoPRISM(test_drc)
+#' exportDRCtoDataFrame(test_drc)
 #'
-exportDRCtoPRISM <- function(idrc_set, include_control=FALSE) {
+exportDRCtoDataFrame <- function(idrc_set, include_control=FALSE) {
 
-    exportDRCtoDataFrame(idrc_set, include_control) %>%
-        dplyr::transmute(sampleid, col_id=paste(round(conc,4), idx, sep='_'), value) %>%
-        tidyr::spread(col_id, value) %>%
+    idrc_set$drc_data %>% dplyr::filter(samptype=='S') %>%
+        dplyr::transmute(sampleid, conc, value=cut_val) %>%
+        dplyr::group_by(sampleid, conc) %>%
+        dplyr::mutate(idx=row_number()) %>%
+        dplyr::ungroup()  %>%
         as.data.frame()
 
 }
