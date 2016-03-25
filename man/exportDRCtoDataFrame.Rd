@@ -4,7 +4,8 @@
 \alias{exportDRCtoDataFrame}
 \title{exportDRCtoDataFrame}
 \usage{
-exportDRCtoDataFrame(idrc_set, include_control = FALSE)
+exportDRCtoDataFrame(idrc_set, include_control = FALSE,
+  add_metadata = FALSE)
 }
 \arguments{
 \item{idrc_set}{IncucyteDRCSet object}

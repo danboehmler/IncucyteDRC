@@ -4,7 +4,7 @@
 \alias{exportEC50Data}
 \title{exportEC50Data}
 \usage{
-exportEC50Data(idrc_set)
+exportEC50Data(idrc_set, add_metadata = FALSE)
 }
 \arguments{
 \item{idrc_set}{IncucyteDRCSet object}

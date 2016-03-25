@@ -87,7 +87,6 @@ calculateCutTime <- function(idrc_set, baseline_time=24, no_doublings=4, max_val
     output <- idrc_set
     output$calculated_cut <- calculated_cut
     output$cut_time <- cut_time
-    print(calculated_cut)
     return(output)
 
 

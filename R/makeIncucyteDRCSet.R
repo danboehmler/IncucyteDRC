@@ -9,6 +9,7 @@
 #' @param platedata IncucyteDRCPlateData object that will be filtered according to the wells present in
 #'  the platemap
 #' @param cut_time The time at which to extract the data for the dose response curve.  Default is NULL.
+#' @param metadata A single row data frame containing any information specific to this IncucyteDRCSet object.
 #'
 #' @return IncucyteDRCSet object
 #' @export
@@ -23,7 +24,7 @@
 #' str(test_set)
 
 
-makeIncucyteDRCSet <- function(platemap, platedata, cut_time=NULL) {
+makeIncucyteDRCSet <- function(platemap, platedata, cut_time=NULL, metadata=NULL) {
 
     stopifnot(class(platedata) == 'IncucyteDRCPlateData')
 
@@ -31,7 +32,8 @@ makeIncucyteDRCSet <- function(platemap, platedata, cut_time=NULL) {
 
     outdata <- list(platemap=as.data.frame(platemap),
                     platedata=platedata,
-                    cut_time=cut_time)
+                    cut_time=cut_time,
+                    metadata=NULL)
 
     class(outdata) <- 'IncucyteDRCSet'
 

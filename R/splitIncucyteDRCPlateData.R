@@ -34,7 +34,10 @@ splitIncucyteDRCPlateData <- function(platemap, platedata, group_columns, cut_ti
     platemap_list <- split(platemap, platemap$group_idx)
 
     #lapply makeIncucyteData across list of platemaps
-    outdata <- lapply(platemap_list, function(x) makeIncucyteDRCSet(platemap = x, platedata = platedata, cut_time = NULL))
+    outdata <- lapply(platemap_list, function(x) makeIncucyteDRCSet(platemap = x, platedata = platedata, cut_time = cut_time))
+
+    #lapply populateIncucyteDRCSetMetadata across the list object
+    outdata <- lapply(outdata, populateIncucyteDRCSetMetadata, group_columns=group_columns)
 
     #return a IncucyteDRCSetList or IncucyteDRCSet number of IncucyteDRCSets
     if(length(outdata) > 1) {

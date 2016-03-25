@@ -22,13 +22,20 @@
 #' plotIncucyteDRCSet(test_drc)
 #' exportDRCtoDataFrame(test_drc)
 #'
-exportDRCtoDataFrame <- function(idrc_set, include_control=FALSE) {
+exportDRCtoDataFrame <- function(idrc_set, include_control=FALSE, add_metadata=FALSE) {
 
-    idrc_set$drc_data %>% dplyr::filter(samptype=='S') %>%
-        dplyr::transmute(sampleid, conc, value=cut_val) %>%
-        dplyr::group_by(sampleid, conc) %>%
-        dplyr::mutate(idx=row_number()) %>%
-        dplyr::ungroup()  %>%
-        as.data.frame()
+    out_df <- idrc_set$drc_data %>%
+                    dplyr::filter(samptype=='S') %>%
+                    dplyr::transmute(sampleid, conc, value=cut_val) %>%
+                    dplyr::group_by(sampleid, conc) %>%
+                    dplyr::mutate(idx=row_number()) %>%
+                    dplyr::ungroup()  %>%
+                    as.data.frame()
+
+    if(add_metadata & is.data.frame(idrc_set$metadata)) {
+        out_df <- merge(out_df, idrc_set$metadata)
+    }
+
+    return(out_df)
 
 }

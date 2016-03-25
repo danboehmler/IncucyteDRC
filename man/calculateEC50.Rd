@@ -4,7 +4,7 @@
 \alias{calculateEC50}
 \title{calculateEC50}
 \usage{
-calculateEC50(idrc_set, include_control = FALSE)
+calculateEC50(idrc_set)
 }
 \arguments{
 \item{idrc_set}{IncucyteDRCSet object}

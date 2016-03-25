@@ -23,10 +23,17 @@
 #' plotIncucyteDRCSet(test_drc)
 #' exportDRCtoDataFrame(test_drc)
 #' test_drc <- fitDoseResponseCurve(test_drc)
+#' test_drc <- calculateEC50(test_drc)
 #' exportEC50Data(test_drc)
 #'
-exportEC50Data <- function(idrc_set) {
+exportEC50Data <- function(idrc_set, add_metadata=FALSE) {
 
-    return(idrc_set$drc_ec50)
+    out_df <- idrc_set$drc_ec50
+
+    if(add_metadata & is.data.frame(idrc_set$metadata)) {
+        out_df <- merge(out_df, idrc_set$metadata)
+    }
+
+    return(out_df)
 
 }

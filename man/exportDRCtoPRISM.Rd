@@ -4,7 +4,7 @@
 \alias{exportDRCtoPRISM}
 \title{exportDRCtoPRISM}
 \usage{
-exportDRCtoPRISM(idrc_set, include_control = FALSE)
+exportDRCtoPRISM(idrc_set, include_control = FALSE, add_metadata = FALSE)
 }
 \arguments{
 \item{idrc_set}{IncucyteDRCSet object}

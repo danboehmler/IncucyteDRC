@@ -22,11 +22,17 @@
 #' plotIncucyteDRCSet(test_drc)
 #' exportDRCtoPRISM(test_drc)
 #'
-exportDRCtoPRISM <- function(idrc_set, include_control=FALSE) {
+exportDRCtoPRISM <- function(idrc_set, include_control=FALSE, add_metadata=FALSE) {
 
-    exportDRCtoDataFrame(idrc_set, include_control) %>%
-        dplyr::transmute(sampleid, col_id=paste(round(conc,4), idx, sep='_'), value) %>%
-        tidyr::spread(col_id, value) %>%
-        as.data.frame()
+    out_df <- exportDRCtoDataFrame(idrc_set, include_control, add_metadata=FALSE) %>%
+                    dplyr::transmute(sampleid, col_id=paste(round(conc,4), idx, sep='_'), value) %>%
+                    tidyr::spread(col_id, value) %>%
+                    as.data.frame()
+
+    if(add_metadata & is.data.frame(idrc_set$metadata)) {
+        out_df <- merge(out_df, idrc_set$metadata)
+    }
+
+    return(out_df)
 
 }

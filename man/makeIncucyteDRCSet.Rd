@@ -4,7 +4,7 @@
 \alias{makeIncucyteDRCSet}
 \title{makeIncucyteDRCSet}
 \usage{
-makeIncucyteDRCSet(platemap, platedata, cut_time = NULL)
+makeIncucyteDRCSet(platemap, platedata, cut_time = NULL, metadata = NULL)
 }
 \arguments{
 \item{platemap}{Platemap dataframe containing information for just those wells required}
@@ -13,6 +13,8 @@ makeIncucyteDRCSet(platemap, platedata, cut_time = NULL)
 the platemap}
 
 \item{cut_time}{The time at which to extract the data for the dose response curve.  Default is NULL.}
+
+\item{metadata}{A single row data frame containing any information specific to this IncucyteDRCSet object.}
 }
 \value{
 IncucyteDRCSet object
