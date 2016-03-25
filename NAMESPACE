@@ -2,6 +2,7 @@
 
 export(calculateCutTime)
 export(calculateDRCdata)
+export(calculateEC50)
 export(exportDRCtoDataFrame)
 export(exportDRCtoPRISM)
 export(exportEC50Data)
