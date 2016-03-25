@@ -31,6 +31,7 @@ test_drc <- calculateDRCdata(test_drc)
 plotIncucyteDRCSet(test_drc)
 exportDRCtoDataFrame(test_drc)
 test_drc <- fitDoseResponseCurve(test_drc)
+test_drc <- calculateEC50(test_drc)
 exportEC50Data(test_drc)
 
 }

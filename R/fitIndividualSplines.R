@@ -28,7 +28,7 @@ fitIndividualSplines <- function(idrc_set) {
         dplyr::do(gc_model=loess (value ~ elapsed  , ., span=0.3, control=loess.control(surface='direct')))
 
     #establish the data range
-    data_range <- data$elapsed
+    data_range <- seq(from=min(data$elapsed, na.rm=TRUE), to=max(data$elapsed, na.rm = TRUE), by = 1)
 
     #generate the fitted data for plotting
     fitted_data <- fitted_models %>%
