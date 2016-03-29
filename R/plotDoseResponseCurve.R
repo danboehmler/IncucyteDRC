@@ -28,10 +28,14 @@
 #' plotDoseResponseCurve(test_drc, 'PDD00017273', native=FALSE)
 plotDoseResponseCurve <- function(idrc_set, sampleid, native=FALSE) {
 
+    q_sampleid <- sampleid
+
     drc_models_filtered <- idrc_set$drc_models %>%
-        dplyr::filter(sampleid == sampleid)
+        dplyr::filter(sampleid == q_sampleid)
 
     drc_model <- drc_models_filtered$drc_model[[1]]
+    if(is.null(drc_model)) return(NULL)
+
     EC50val <- drc::ED(drc_model,50, display=F)[1]
 
     #if native is TRUE then just use the drc native plotting function
@@ -44,9 +48,11 @@ plotDoseResponseCurve <- function(idrc_set, sampleid, native=FALSE) {
     #if not, continue and return a ggplot object
     #extract the generated function from the curve fit and make the curve
     drc_model_func <- drc_model$curve[[1]]
-    conc.seq <- seq(min(drc_model$dataList$dose), max(drc_model$dataList$dose), 0.1)
-    drc_model_curve <- data.frame(conc=conc.seq,
-                          value=drc_model_func(conc.seq))
+    conc_range <- unique(drc_model$dataList$dose)
+    conc_range <- log10(conc_range[conc_range>0])
+    conc_seq <- 10^seq(min(conc_range), max(conc_range), 0.1)
+    drc_model_curve <- data.frame(conc=conc_seq,
+                          value=drc_model_func(conc_seq))
 
     #do the plot
     p2 <- ggplot(drc_model$origData, aes(y=value, x=conc)) +
