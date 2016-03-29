@@ -18,7 +18,7 @@
 #' test_drc <- fitIndividualSplines(test_list[[2]])
 #' test_drc <- fitGroupSplines(test_drc)
 #' plotIncucyteDRCSet(test_drc)
-#' test_drc <- calculateCutTime(test_drc)
+#' test_drc <- calculateCutTimeForIDRCSet(test_drc)
 #' test_drc <- calculateDRCdata(test_drc)
 #' plotIncucyteDRCSet(test_drc)
 #' exportDRCtoDataFrame(test_drc)
