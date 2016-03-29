@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plateMap>
+  <referenceItemManager>
+    <referenceItems>
+      <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+      <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+      <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+    </referenceItems>
+  </referenceItemManager>
+  <wellStore>
+    <wells>
+      <well row="0" col="0" />
+      <well row="0" col="1" />
+      <well row="0" col="2" />
+      <well row="0" col="3" />
+      <well row="0" col="4" />
+      <well row="0" col="5" />
+      <well row="0" col="6" />
+      <well row="0" col="7" />
+      <well row="0" col="8" />
+      <well row="0" col="9" />
+      <well row="0" col="10" />
+      <well row="0" col="11" />
+      <well row="1" col="0" />
+      <well row="1" col="1">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="1" col="2">
+        <items>
+          <wellItem type="Compound" concentration="30" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="1" col="3">
+        <items>
+          <wellItem type="Compound" concentration="10" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="1" col="4">
+        <items>
+          <wellItem type="Compound" concentration="3.3333333333333335" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="1" col="5">
+        <items>
+          <wellItem type="Compound" concentration="1.1111111111111112" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="1" col="6">
+        <items>
+          <wellItem type="Compound" concentration="0.37037037037037041" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="1" col="7">
+        <items>
+          <wellItem type="Compound" concentration="0.1234567901234568" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="1" col="8">
+        <items>
+          <wellItem type="Compound" concentration="0.0411522633744856" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="1" col="9">
+        <items>
+          <wellItem type="Compound" concentration="0.013717421124828532" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="1" col="10">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="1" col="11" />
+      <well row="2" col="0" />
+      <well row="2" col="1">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="2" col="2">
+        <items>
+          <wellItem type="Compound" concentration="30" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="2" col="3">
+        <items>
+          <wellItem type="Compound" concentration="10" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="2" col="4">
+        <items>
+          <wellItem type="Compound" concentration="3.3333333333333335" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="2" col="5">
+        <items>
+          <wellItem type="Compound" concentration="1.1111111111111112" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="2" col="6">
+        <items>
+          <wellItem type="Compound" concentration="0.37037037037037041" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="2" col="7">
+        <items>
+          <wellItem type="Compound" concentration="0.1234567901234568" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="2" col="8">
+        <items>
+          <wellItem type="Compound" concentration="0.0411522633744856" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="2" col="9">
+        <items>
+          <wellItem type="Compound" concentration="0.013717421124828532" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="2" col="10">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="2" col="11" />
+      <well row="3" col="0" />
+      <well row="3" col="1">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="3" col="2">
+        <items>
+          <wellItem type="Compound" concentration="30" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="3" col="3">
+        <items>
+          <wellItem type="Compound" concentration="10" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="3" col="4">
+        <items>
+          <wellItem type="Compound" concentration="3.3333333333333335" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="3" col="5">
+        <items>
+          <wellItem type="Compound" concentration="1.1111111111111112" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="3" col="6">
+        <items>
+          <wellItem type="Compound" concentration="0.37037037037037041" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="3" col="7">
+        <items>
+          <wellItem type="Compound" concentration="0.1234567901234568" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="3" col="8">
+        <items>
+          <wellItem type="Compound" concentration="0.0411522633744856" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="3" col="9">
+        <items>
+          <wellItem type="Compound" concentration="0.013717421124828532" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00017252" displayName="17252" colorArgb="-1490880" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="3" col="10">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="3" col="11" />
+      <well row="4" col="0" />
+      <well row="4" col="1">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="4" col="2">
+        <items>
+          <wellItem type="Compound" concentration="30" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="4" col="3">
+        <items>
+          <wellItem type="Compound" concentration="10" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="4" col="4">
+        <items>
+          <wellItem type="Compound" concentration="3.3333333333333335" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="4" col="5">
+        <items>
+          <wellItem type="Compound" concentration="1.1111111111111112" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="4" col="6">
+        <items>
+          <wellItem type="Compound" concentration="0.37037037037037041" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="4" col="7">
+        <items>
+          <wellItem type="Compound" concentration="0.1234567901234568" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="4" col="8">
+        <items>
+          <wellItem type="Compound" concentration="0.0411522633744856" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="4" col="9">
+        <items>
+          <wellItem type="Compound" concentration="0.013717421124828532" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="4" col="10">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="4" col="11" />
+      <well row="5" col="0" />
+      <well row="5" col="1">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="5" col="2">
+        <items>
+          <wellItem type="Compound" concentration="30" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="5" col="3">
+        <items>
+          <wellItem type="Compound" concentration="10" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="5" col="4">
+        <items>
+          <wellItem type="Compound" concentration="3.3333333333333335" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="5" col="5">
+        <items>
+          <wellItem type="Compound" concentration="1.1111111111111112" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="5" col="6">
+        <items>
+          <wellItem type="Compound" concentration="0.37037037037037041" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="5" col="7">
+        <items>
+          <wellItem type="Compound" concentration="0.1234567901234568" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="5" col="8">
+        <items>
+          <wellItem type="Compound" concentration="0.0411522633744856" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="5" col="9">
+        <items>
+          <wellItem type="Compound" concentration="0.013717421124828532" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="5" col="10">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="5" col="11" />
+      <well row="6" col="0" />
+      <well row="6" col="1">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="6" col="2">
+        <items>
+          <wellItem type="Compound" concentration="30" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="6" col="3">
+        <items>
+          <wellItem type="Compound" concentration="10" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="6" col="4">
+        <items>
+          <wellItem type="Compound" concentration="3.3333333333333335" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="6" col="5">
+        <items>
+          <wellItem type="Compound" concentration="1.1111111111111112" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="6" col="6">
+        <items>
+          <wellItem type="Compound" concentration="0.37037037037037041" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="6" col="7">
+        <items>
+          <wellItem type="Compound" concentration="0.1234567901234568" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="6" col="8">
+        <items>
+          <wellItem type="Compound" concentration="0.0411522633744856" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="6" col="9">
+        <items>
+          <wellItem type="Compound" concentration="0.013717421124828532" concentrationUnits="µM">
+            <referenceItem type="Compound" description="PDD00014673" displayName="14673" colorArgb="-1447616" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="6" col="10">
+        <items>
+          <wellItem type="Compound" concentration="0.1" concentrationUnits="%">
+            <referenceItem type="Compound" description="DMSO 0.1%" displayName="DMSO" colorArgb="-12523200" />
+          </wellItem>
+        </items>
+      </well>
+      <well row="6" col="11" />
+      <well row="7" col="0" />
+      <well row="7" col="1" />
+      <well row="7" col="2" />
+      <well row="7" col="3" />
+      <well row="7" col="4" />
+      <well row="7" col="5" />
+      <well row="7" col="6" />
+      <well row="7" col="7" />
+      <well row="7" col="8" />
+      <well row="7" col="9" />
+      <well row="7" col="10" />
+      <well row="7" col="11" />
+    </wells>
+  </wellStore>
+</plateMap>

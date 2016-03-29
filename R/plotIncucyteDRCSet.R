@@ -27,7 +27,7 @@ plotIncucyteDRCSet <- function(idrc_set, grouped=FALSE) {
     data <- idrc_set$platemap %>% dplyr::inner_join(idrc_set$platedata$data, by='wellid')
 
     out_plot <- ggplot(data, aes(x=elapsed, y=value, colour=as.factor(round(conc, 3)))) +
-                    geom_point() +
+                    geom_point(alpha=0.2) +
                     scale_colour_discrete(name='conc') +
                     facet_wrap(~sampleid) + theme_bw()
 
