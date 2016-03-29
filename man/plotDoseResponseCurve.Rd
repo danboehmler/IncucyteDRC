@@ -4,15 +4,17 @@
 \alias{plotDoseResponseCurve}
 \title{plotDoseResponseCurve}
 \usage{
-plotDoseResponseCurve(idrc_set, sampleid)
+plotDoseResponseCurve(idrc_set, sampleid, native = FALSE)
 }
 \arguments{
 \item{idrc_set}{IncucyteDRCSet object}
 
 \item{sampleid}{The sample id to plot}
+
+\item{native}{A boolean whether or not to use the native \code{\link[drc]{plot.drc}} function}
 }
 \value{
-a plot
+a ggplot2 object (if native is FALSE) or NULL but draws to open graphics object (if native is TRUE)
 }
 \description{
 Plots the dose response curve for a given sample id from an IncucyteDRCSet object
@@ -32,6 +34,7 @@ test_drc <- calculateCutTimeForIDRCSet(test_drc)
 test_drc <- calculateDRCData(test_drc)
 test_drc <- fitDoseResponseCurve(test_drc)
 test_drc <- calculateEC50(test_drc)
-plotDoseResponseCurve(test_drc, 'PDD00017273')
+plotDoseResponseCurve(test_drc, 'PDD00017273', native=TRUE)
+plotDoseResponseCurve(test_drc, 'PDD00017273', native=FALSE)
 }
 

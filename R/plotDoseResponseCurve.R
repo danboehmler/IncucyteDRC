@@ -4,8 +4,9 @@
 #'
 #' @param idrc_set IncucyteDRCSet object
 #' @param sampleid The sample id to plot
+#' @param native A boolean whether or not to use the native \code{\link[drc]{plot.drc}} function
 #'
-#' @return a plot
+#' @return a ggplot2 object (if native is FALSE) or NULL but draws to open graphics object (if native is TRUE)
 #' @export
 #'
 #' @examples
@@ -23,16 +24,39 @@
 #' test_drc <- calculateDRCData(test_drc)
 #' test_drc <- fitDoseResponseCurve(test_drc)
 #' test_drc <- calculateEC50(test_drc)
-#' plotDoseResponseCurve(test_drc, 'PDD00017273')
-plotDoseResponseCurve <- function(idrc_set, sampleid) {
+#' plotDoseResponseCurve(test_drc, 'PDD00017273', native=TRUE)
+#' plotDoseResponseCurve(test_drc, 'PDD00017273', native=FALSE)
+plotDoseResponseCurve <- function(idrc_set, sampleid, native=FALSE) {
 
     drc_models_filtered <- idrc_set$drc_models %>%
         dplyr::filter(sampleid == sampleid)
 
-    mod <- drc_models_filtered$drc_model[[1]]
+    drc_model <- drc_models_filtered$drc_model[[1]]
+    EC50val <- drc::ED(drc_model,50, display=F)[1]
 
-    drc:::plot.drc(mod, type='all', broken=TRUE, main=sampleid)
-    abline(v=drc::ED(mod,50, display=F)[1], col='red', lty='dashed')
+    #if native is TRUE then just use the drc native plotting function
+    if(native) {
+        drc:::plot.drc(drc_model, type='all', broken=TRUE, main=sampleid)
+        abline(v=EC50val, col='red', lty='dashed')
+        return()
+    }
 
+    #if not, continue and return a ggplot object
+    #extract the generated function from the curve fit and make the curve
+    drc_model_func <- drc_model$curve[[1]]
+    conc.seq <- seq(min(drc_model$dataList$dose), max(drc_model$dataList$dose), 0.1)
+    drc_model_curve <- data.frame(conc=conc.seq,
+                          value=drc_model_func(conc.seq))
+
+    #do the plot
+    p2 <- ggplot(drc_model$origData, aes(y=value, x=conc)) +
+        geom_point(alpha=0.8, shape=21, size=rel(3)) +
+        ggtitle(sprintf("%s", sampleid)) +
+        scale_x_log10() +
+        geom_line(data=drc_model_curve, colour='red') +
+        geom_vline(xintercept = EC50val, color='red', alpha=0.5, linetype='dashed') +
+        cowplot::theme_cowplot()
+
+    return(p2)
 
 }
