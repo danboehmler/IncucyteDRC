@@ -3,6 +3,7 @@
 #' Exports EC50 data into a standard data frame format from the dose response fit for an IncucyteDRCSet object
 #'
 #' @param idrc_set IncucyteDRCSet object
+#' @param add_metadata Whether or not to merge IncucyteDRCSet metadata into the output
 #'
 #' @return IncucyteDRCSet object
 #' @export

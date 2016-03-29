@@ -11,6 +11,8 @@ exportDRCDataToPRISM(idrc_set, include_control = FALSE,
 \item{idrc_set}{IncucyteDRCSet object}
 
 \item{include_control}{Whether to include control sample as zero conc control}
+
+\item{add_metadata}{Whether or not to merge IncucyteDRCSet metadata into the output}
 }
 \value{
 IncucyteDRCSet object

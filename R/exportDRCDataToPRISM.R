@@ -4,6 +4,7 @@
 #'
 #' @param idrc_set IncucyteDRCSet object
 #' @param include_control Whether to include control sample as zero conc control
+#' @param add_metadata Whether or not to merge IncucyteDRCSet metadata into the output
 #'
 #' @return IncucyteDRCSet object
 #' @export

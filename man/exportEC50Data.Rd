@@ -8,6 +8,8 @@ exportEC50Data(idrc_set, add_metadata = FALSE)
 }
 \arguments{
 \item{idrc_set}{IncucyteDRCSet object}
+
+\item{add_metadata}{Whether or not to merge IncucyteDRCSet metadata into the output}
 }
 \value{
 IncucyteDRCSet object
