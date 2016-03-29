@@ -31,6 +31,7 @@ plotIncucyteDRCSet(test_splines)
 test_drc <- calculateDRCData(test_splines, cut_time=100)
 plotIncucyteDRCSet(test_drc)
 exportDRCDataToDataFrame(test_drc)
-
+exportDRCDataToDataFrame(test_drc, include_control=TRUE)
+exportDRCDataToDataFrame(test_drc, include_control=TRUE, add_metadata=TRUE)
 }
 

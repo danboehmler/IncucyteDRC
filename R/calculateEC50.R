@@ -29,7 +29,7 @@ calculateEC50 <- function(idrc_set) {
     #extract parameters from models filtering out NULLs
     drc_ec50 <- idrc_set$drc_models %>%
         dplyr::filter(!is.null(drc_model)) %>%
-        dplyr::mutate(Tm = drc::ED(drc_model,50, display=F)[1],
+        dplyr::mutate(EC50 = drc::ED(drc_model,50, display=F)[1],
                       SE = drc::ED(drc_model,50, display=F)[2],
                       #R2 <- dr.calc.r2(dr),
                       b = coef(drc_model)[1],
@@ -42,7 +42,7 @@ calculateEC50 <- function(idrc_set) {
     #deal with null models
     drc_ec50_nulls <- idrc_set$drc_models %>%
         dplyr::filter(is.null(drc_model)) %>%
-        dplyr::mutate(Tm=NA, SE=NA, b=NA, c=NA, d=NA, e=NA) %>%
+        dplyr::mutate(EC50=NA, SE=NA, b=NA, c=NA, d=NA, e=NA) %>%
         dplyr::select(-drc_model) %>%
         dplyr::ungroup()
 
