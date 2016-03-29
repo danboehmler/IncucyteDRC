@@ -19,7 +19,7 @@
 #'
 #' str(test_list)
 #'
-#' test_idrc_set <- fitGroupSplines(test_list[[2]])
+#' test_idrc_set <- fitGrowthCurvesGrouped(test_list[[2]])
 #' plotIncucyteDRCSet(test_idrc_set, grouped=TRUE)
 #' test_idrc_set <- calculateCutTimeForIDRCSet(test_idrc_set)
 #' plotIncucyteDRCSet(test_idrc_set, grouped=TRUE)
@@ -28,7 +28,7 @@
 calculateCutTimeForIDRCSet <- function(idrc_set, baseline_time=24, no_doublings=4, max_val=80) {
 
     if(is.null(idrc_set$fitted_models_grouped)) {
-        stop('Need to fit splines first using fitGroupedSplines')
+        stop('Need to fit splines first using fitGrowthCurvesGrouped')
     }
 
     #baseline_time=24; no_doublings=4; max_val=80;

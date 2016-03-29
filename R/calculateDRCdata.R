@@ -1,4 +1,4 @@
-#' calculateDRCdata
+#' calculateDRCData
 #'
 #' For a given cut time, calculate values from the growth curves in a IncucyteDRCSet object
 #'
@@ -16,14 +16,14 @@
 #'
 #' str(test_list)
 #'
-#' test_splines <- fitIndividualSplines(test_list[[2]])
+#' test_splines <- fitGrowthCurvesIndividual(test_list[[2]])
 #' plotIncucyteDRCSet(test_splines)
-#' test_drc <- calculateDRCdata(test_splines, cut_time=100)
+#' test_drc <- calculateDRCData(test_splines, cut_time=100)
 #' names(test_drc)
 #' test_drc$drc_data
 #' plotIncucyteDRCSet(test_drc)
 #'
-calculateDRCdata <- function(idrc_set, cut_time=NULL) {
+calculateDRCData <- function(idrc_set, cut_time=NULL) {
 
     if(is.null(idrc_set$cut_time) & is.null(cut_time)) {
         stop('Set cut_time in IncucyteDRCSet or function parameter')
@@ -39,7 +39,7 @@ calculateDRCdata <- function(idrc_set, cut_time=NULL) {
     }
 
     if(is.null(idrc_set$fitted_models_indiv)) {
-        stop('Need to fit splines first using fitIndividualSplines')
+        stop('Need to fit growth curves first using fitGrowthCurvesIndividual')
     }
 
     #predict the value at the cut time using the splines

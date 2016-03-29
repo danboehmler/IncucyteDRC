@@ -19,7 +19,7 @@
 #'
 #' str(test_list)
 #'
-#' test_idrc_set <- fitGroupSplines(test_list[[2]])
+#' test_idrc_set <- fitGrowthCurvesGrouped(test_list[[2]])
 #' plotIncucyteDRCSet(test_idrc_set, grouped=TRUE)
 #' test_idrc_set$fitted_models_grouped
 #' test_gcm <- test_idrc_set$fitted_models_grouped$gc_model[[1]]

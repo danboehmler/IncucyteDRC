@@ -1,6 +1,6 @@
-#' exportDRCtoPRISM
+#' exportDRCDataToDataFrame
 #'
-#' Exports data in PRISM format for an IncucyteDRCSet
+#' Exports data into a standard data frame format for an IncucyteDRCSet
 #'
 #' @param idrc_set IncucyteDRCSet object
 #' @param include_control Whether to include control sample as zero conc control
@@ -16,23 +16,26 @@
 #'
 #' str(test_list)
 #'
-#' test_splines <- fitIndividualSplines(test_list[[2]])
+#' test_splines <- fitGrowthCurvesIndividual(test_list[[2]])
 #' plotIncucyteDRCSet(test_splines)
-#' test_drc <- calculateDRCdata(test_splines, cut_time=100)
+#' test_drc <- calculateDRCData(test_splines, cut_time=100)
 #' plotIncucyteDRCSet(test_drc)
-#' exportDRCtoPRISM(test_drc)
+#' exportDRCDataToDataFrame(test_drc)
 #'
-exportDRCtoPRISM <- function(idrc_set, include_control=FALSE, add_metadata=FALSE) {
+exportDRCDataToDataFrame <- function(idrc_set, include_control=FALSE, add_metadata=FALSE) {
 
-    out_df <- exportDRCtoDataFrame(idrc_set, include_control, add_metadata=FALSE) %>%
-                    dplyr::transmute(sampleid, col_id=paste(round(conc,4), idx, sep='_'), value) %>%
-                    tidyr::spread(col_id, value) %>%
+    out_df <- idrc_set$drc_data %>%
+                    dplyr::filter(samptype=='S') %>%
+                    dplyr::transmute(sampleid, conc, value=cut_val) %>%
+                    dplyr::group_by(sampleid, conc) %>%
+                    dplyr::mutate(idx=row_number()) %>%
+                    dplyr::ungroup()  %>%
                     as.data.frame()
 
     if(add_metadata & is.data.frame(idrc_set$metadata)) {
         out_df <- merge(out_df, idrc_set$metadata)
     }
 
-    return(out_df)
+    return(as.data.frame(out_df))
 
 }

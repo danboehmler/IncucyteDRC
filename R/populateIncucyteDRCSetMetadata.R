@@ -7,8 +7,7 @@
 #' @param group_columns Vector of columns that are present in the data frame to generate the groups.
 #'
 #' @return IncucyteDRCSet object
-#'
-#' @examples
+
 
 populateIncucyteDRCSetMetadata <- function(idrc_set, group_columns) {
 

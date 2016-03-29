@@ -16,18 +16,18 @@
 #'
 #' str(test_list)
 #'
-#' test_splines <- fitIndividualSplines(test_list[[2]])
+#' test_splines <- fitGrowthCurvesIndividual(test_list[[2]])
 #' plotIncucyteDRCSet(test_splines)
-#' test_drc <- calculateDRCdata(test_splines, cut_time=100)
+#' test_drc <- calculateDRCData(test_splines, cut_time=100)
 #' plotIncucyteDRCSet(test_drc)
-#' exportDRCtoDataFrame(test_drc)
+#' exportDRCDataToDataFrame(test_drc)
 #' test_drc <- fitDoseResponseCurve(test_drc)
 #' test_drc <- calculateEC50(test_drc)
 #' exportEC50Data(test_drc)
 #'
 fitDoseResponseCurve <- function(idrc_set, include_control=FALSE) {
 
-    df <- exportDRCtoDataFrame(idrc_set, include_control)
+    df <- exportDRCDataToDataFrame(idrc_set, include_control)
 
     #set up subroutine for fit
     drc_fit <- function(x) {

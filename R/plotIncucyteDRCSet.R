@@ -16,8 +16,8 @@
 #'
 #' str(test_list)
 #'
-#' test_splines <- fitIndividualSplines(test_list[[2]])
-#' test_splines <- fitGroupSplines(test_splines)
+#' test_splines <- fitGrowthCurvesIndividual(test_list[[2]])
+#' test_splines <- fitGrowthCurvesGrouped(test_splines)
 #' plotIncucyteDRCSet(test_splines, grouped=FALSE)
 #' plotIncucyteDRCSet(test_splines, grouped=TRUE)
 #'

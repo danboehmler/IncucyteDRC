@@ -23,13 +23,13 @@ test_list <- splitIncucyteDRCPlateData(test_pm, test_data, group_columns='growth
 
 str(test_list)
 
-test_drc <- fitIndividualSplines(test_list[[2]])
-test_drc <- fitGroupSplines(test_drc)
+test_drc <- fitGrowthCurvesIndividual(test_list[[2]])
+test_drc <- fitGrowthCurvesGrouped(test_drc)
 plotIncucyteDRCSet(test_drc)
 test_drc <- calculateCutTimeForIDRCSet(test_drc)
-test_drc <- calculateDRCdata(test_drc)
+test_drc <- calculateDRCData(test_drc)
 plotIncucyteDRCSet(test_drc)
-exportDRCtoDataFrame(test_drc)
+exportDRCDataToDataFrame(test_drc)
 test_drc <- fitDoseResponseCurve(test_drc)
 test_drc <- calculateEC50(test_drc)
 exportEC50Data(test_drc)

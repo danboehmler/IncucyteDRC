@@ -1,4 +1,4 @@
-#' fitGroupSplines
+#' fitGrowthCurvesIndividual
 #'
 #' Function to fit splines to the growth curve data in an IncucyteDRCSet object
 #'
@@ -15,21 +15,16 @@
 #'
 #' str(test_list)
 #'
-#' test_splines <- fitGroupSplines(test_list[[2]])
+#' test_splines <- fitGrowthCurvesIndividual(test_list[[2]])
 #'
-fitGroupSplines <- function(idrc_set) {
+fitGrowthCurvesIndividual <- function(idrc_set) {
 
     #combine the platemap and data
     data <- idrc_set$platemap %>% dplyr::inner_join(idrc_set$platedata$data, by='wellid')
 
-    #platemap grouped
-    platemap_grouped <- idrc_set$platemap %>%
-        dplyr::select(sampleid, conc, samptype, concunits) %>%
-        dplyr::distinct()
-
     #fit the splines
     fitted_models <- data %>%
-        dplyr::group_by(sampleid, conc) %>%
+        dplyr::group_by(wellid) %>%
         dplyr::do(gc_model=loess (value ~ elapsed  , ., span=0.3, control=loess.control(surface='direct')))
 
     #establish the data range
@@ -37,16 +32,16 @@ fitGroupSplines <- function(idrc_set) {
 
     #generate the fitted data for plotting
     fitted_data <- fitted_models %>%
-        dplyr::do(data.frame(value=predict(.$gc_model, data_range), elapsed=data_range,
-                             sampleid=.$sampleid, conc=.$conc, stringsAsFactors=FALSE)) %>%
+        dplyr::do(data.frame(value=predict(.$gc_model, data_range), elapsed=data_range, wellid=.$wellid, stringsAsFactors=FALSE)) %>%
         dplyr::ungroup() %>%
-        dplyr::inner_join(platemap_grouped, by=c('sampleid', 'conc')) %>%
+        dplyr::inner_join(idrc_set$platemap, by='wellid') %>%
+        dplyr::select(wellid, sampleid, conc, samptype, concunits, value, elapsed) %>%
         as.data.frame()
 
     #construct the output object
     output <- idrc_set
-    output$fitted_data_grouped <- fitted_data
-    output$fitted_models_grouped <- fitted_models
+    output$fitted_data_indiv <- fitted_data
+    output$fitted_models_indiv <- fitted_models
 
     return(output)
 

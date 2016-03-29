@@ -1,6 +1,6 @@
-#' fitIndividualSplines
+#' fitGrowthCurvesGrouped
 #'
-#' Function to fit splines to the growth curve data in an IncucyteDRCSet object
+#' Function to fit loess function to the growth curve data in an IncucyteDRCSet object
 #'
 #' @param idrc_set IncucyteDRCSet object
 #'
@@ -15,16 +15,21 @@
 #'
 #' str(test_list)
 #'
-#' test_splines <- fitIndividualSplines(test_list[[2]])
+#' test_splines <- fitGrowthCurvesGrouped(test_list[[2]])
 #'
-fitIndividualSplines <- function(idrc_set) {
+fitGrowthCurvesGrouped <- function(idrc_set) {
 
     #combine the platemap and data
     data <- idrc_set$platemap %>% dplyr::inner_join(idrc_set$platedata$data, by='wellid')
 
+    #platemap grouped
+    platemap_grouped <- idrc_set$platemap %>%
+        dplyr::select(sampleid, conc, samptype, concunits) %>%
+        dplyr::distinct()
+
     #fit the splines
     fitted_models <- data %>%
-        dplyr::group_by(wellid) %>%
+        dplyr::group_by(sampleid, conc) %>%
         dplyr::do(gc_model=loess (value ~ elapsed  , ., span=0.3, control=loess.control(surface='direct')))
 
     #establish the data range
@@ -32,16 +37,16 @@ fitIndividualSplines <- function(idrc_set) {
 
     #generate the fitted data for plotting
     fitted_data <- fitted_models %>%
-        dplyr::do(data.frame(value=predict(.$gc_model, data_range), elapsed=data_range, wellid=.$wellid, stringsAsFactors=FALSE)) %>%
+        dplyr::do(data.frame(value=predict(.$gc_model, data_range), elapsed=data_range,
+                             sampleid=.$sampleid, conc=.$conc, stringsAsFactors=FALSE)) %>%
         dplyr::ungroup() %>%
-        dplyr::inner_join(idrc_set$platemap, by='wellid') %>%
-        dplyr::select(wellid, sampleid, conc, samptype, concunits, value, elapsed) %>%
+        dplyr::inner_join(platemap_grouped, by=c('sampleid', 'conc')) %>%
         as.data.frame()
 
     #construct the output object
     output <- idrc_set
-    output$fitted_data_indiv <- fitted_data
-    output$fitted_models_indiv <- fitted_models
+    output$fitted_data_grouped <- fitted_data
+    output$fitted_models_grouped <- fitted_models
 
     return(output)
 
