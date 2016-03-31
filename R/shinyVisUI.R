@@ -22,12 +22,16 @@ shinyVisUI <- function() {
                                                    'text/comma-separated-values',
                                                    'text/plain',
                                                    'txt')),
-                                sliderInput('cut_time_slider', 'Specify cut time', 1,300, 175)
+                                sliderInput('cut_time_slider', 'Specify cut time', 1,300, 175),
+                                numericInput('list_item', 'Specify set', 1)
 
                                 ),
                             mainPanel(
+                                tableOutput('metadata'),
 
-                                plotOutput('plot')
+                                plotOutput('plot'),
+
+                                tableOutput('drc_data')
                             )
                         )),
                tabPanel("tab 2", "contents"),

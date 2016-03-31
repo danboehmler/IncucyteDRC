@@ -10,17 +10,34 @@
 #' @import shiny
 shinyVisServer <- function(input, output) {
 
-    test_pm <- reactive({importPlatemapXML(input$platemap_file$datapath)})
-    test_data <- reactive({importIncucyteData(input$data_file$datapath, metric='pc')})
-    test_list <- reactive({
-        splitIncucyteDRCPlateData(test_pm(), test_data(), group_columns='growthcondition')[[1]] %>%
+    user_pm <- reactive({importPlatemapXML(input$platemap_file$datapath)})
+
+    user_data <- reactive({importIncucyteData(input$data_file$datapath, metric='pc')})
+
+    res <- reactive({
+        idrc_set <- splitIncucyteDRCPlateData(user_pm(), user_data(), group_columns='growthcondition')
+
+        if (class(idrc_set) == 'IncucyteDRCSetList') {
+            idrc_set <- idrc_set[[as.numeric(input$list_item)]]
+        }
+
+        idrc_set %>%
             fitGrowthCurvesGrouped() %>%
-            fitGrowthCurvesIndividual()
+            fitGrowthCurvesIndividual() %>%
+            calculateDRCData(input$cut_time_slider)
         })
 
     output$plot <- renderPlot({
-        plotIncucyteDRCSet(test_list(), grouped=TRUE)
+        plotIncucyteDRCSet(res(), grouped=TRUE)
     })
+
+    output$metadata <- renderTable({
+        res()$metadata
+    })
+
+    output$drc_data <- renderTable(({
+        exportDRCDataToDataFrame(res(), add_metadata=TRUE)
+    }))
 
 
 }
