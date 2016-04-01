@@ -177,8 +177,29 @@ lapply(test_list, exportEC50Data, add_metadata=TRUE) %>% dplyr::bind_rows()
 
 ```
 
-## Shiny apps
+## Graphical interface for non-R users with shiny
 
-Finally, the package contains functions to create a shiny app to enable non-R users to access the functionality in the IncucyteDRC package.
+Finally, the package contains functions to create a shiny app to enable non-R users to access the functionality in the IncucyteDRC package.  The shiny interface can be launched as follows from the packages:
+
+```{r eval=FALSE}
+shinyVisApp()
+```
+
+And the following code can be used as the basis of a single file shiny app to run on a shiny server:
+```{r eval=FALSE}
+#save code as app.R 
+library(IncucyteDRC)
+library(shiny)
+
+options(warn=-1) #disable warnings
+
+#initiate the shiny app
+shinyApp(
+    ui = IncucyteDRC::shinyVisUI(),
+    server = function(input, output) {
+        IncucyteDRC::shinyVisServer(input, output)
+    }
+)
+```
 
 

@@ -67,13 +67,23 @@ shinyVisServer <- function(input, output) {
         return(idrc_set)
         })
 
+    res_ec50 <- reactive({
+        res() %>% fitDoseResponseCurve(include_control = input$include_control_mode) %>%
+            calculateEC50()
+    })
+
     drc_data <- reactive({
         if(input$data_format_select == 'dataframe'){
-            exportDRCDataToDataFrame(res(), add_metadata=TRUE)
+            exportDRCDataToDataFrame(res(), add_metadata=TRUE, include_control = input$include_control_mode)
         } else {
-            exportDRCDataToPRISM(res(), add_metadata=TRUE)
+            exportDRCDataToPRISM(res(), add_metadata=TRUE, include_control = input$include_control_mode)
         }
     })
+
+    ec50_data <- reactive({
+        exportEC50Data(res_ec50(), add_metadata=FALSE)
+    })
+
 
     metadata_df <- reactive({
         if(class(res_list()) != 'IncucyteDRCSetList') {
@@ -111,6 +121,20 @@ shinyVisServer <- function(input, output) {
         }
     })
 
+    output$ec50page_ui <- renderUI({
+        if(is.null(res_list())) {
+            mainPanel(
+                helpText('Upload a valid platemap and data file to start')
+            )
+        } else {
+            mainPanel(
+                plotOutput('ec50_plot'),
+                DT::dataTableOutput('ec50_data'),
+                downloadButton('download_ec50_data', 'Download Data')
+            )
+        }
+    })
+
     output$plot <- renderPlot({
         plotIncucyteDRCSet(res(), grouped=TRUE)
     })
@@ -128,6 +152,28 @@ shinyVisServer <- function(input, output) {
         filename = 'drc_data_download.txt',
         content = function(file) {
             write.table(drc_data(), file=file, sep='\t', row.names = FALSE, col.names = TRUE, na='')
+        }
+    )
+
+    output$ec50_plot <- renderPlot({
+
+        rowid <- input$ec50_data_row_last_clicked
+        rowid <- ifelse(is.null(rowid),1,rowid)
+        sid <- ec50_data()[rowid,'sampleid']
+        message(sid)
+        plotDoseResponseCurve(res_ec50(), sid)
+    })
+
+    output$ec50_data <- DT::renderDataTable({
+        ec50_data()
+    }, filter='none', selection=list(mode = 'single', selected = 1),
+    options=list(searching=FALSE, sorting=FALSE, paging=FALSE, info=FALSE, ordering=FALSE))
+
+    output$download_ec50_data <- downloadHandler(
+        filename = 'ec50_data_download.txt',
+        content = function(file) {
+            write.table(exportEC50Data(res_ec50(), add_metadata=TRUE),
+                        file=file, sep='\t', row.names = FALSE, col.names = TRUE, na='')
         }
     )
 

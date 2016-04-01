@@ -34,6 +34,7 @@ shinyVisUI <- function() {
                                     sliderInput('no_doublings_slider', 'Specify # doublings', 1,6, 4, 0.1)
                                     ),
                                 checkboxInput('cut_time_mode', 'Calculate cut time', value=FALSE),
+                                checkboxInput('include_control_mode', 'Include control data in dose response', value=FALSE),
 
 
                                 selectInput('group_columns_select', 'Select group columns',
@@ -54,6 +55,8 @@ shinyVisUI <- function() {
                                     selectize=FALSE),
                         uiOutput('datapage_ui')
                         ),
+               tabPanel('EC50',
+                        uiOutput('ec50page_ui')),
                tabPanel("Help", "contents"))
 
 

@@ -50,7 +50,7 @@ plotDoseResponseCurve <- function(idrc_set, sampleid, native=FALSE) {
     drc_model_func <- drc_model$curve[[1]]
     conc_range <- unique(drc_model$dataList$dose)
     conc_range <- log10(conc_range[conc_range>0])
-    conc_seq <- 10^seq(min(conc_range), max(conc_range), 0.1)
+    conc_seq <- 10^seq(min(conc_range), max(conc_range), 0.01)
     drc_model_curve <- data.frame(conc=conc_seq,
                           value=drc_model_func(conc_seq))
 
