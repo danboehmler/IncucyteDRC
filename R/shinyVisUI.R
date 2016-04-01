@@ -22,7 +22,24 @@ shinyVisUI <- function() {
                                                    'text/comma-separated-values',
                                                    'text/plain',
                                                    'txt')),
-                                sliderInput('cut_time_slider', 'Specify cut time', 1,300, 175),
+                                conditionalPanel(
+                                    condition = "input.cut_time_mode == false",
+                                    sliderInput('cut_time_slider', 'Specify cut time', 1,300, 175)
+                                    ),
+                                conditionalPanel(
+                                    condition = "input.cut_time_mode == true",
+                                    sliderInput('baseline_time_slider', 'Specify baseline time', 1,100, 24),
+                                    sliderInput('max_val_slider', 'Specify maximum value', 20,100, 80),
+                                    sliderInput('no_doublings_slider', 'Specify # doublings', 1,6, 4, 0.1)
+                                    ),
+                                checkboxInput('cut_time_mode', 'Calculate cut time', value=FALSE),
+
+
+                                selectInput('group_columns_select', 'Select group columns',
+                                            choices=c('growthcondition', 'celltype', 'passage', 'seedingdensity'),
+                                            selected='growthcondition',
+                                            multiple=TRUE,
+                                            selectize=TRUE),
                                 numericInput('list_item', 'Specify set', 1)
 
                                 ),
