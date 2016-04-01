@@ -14,11 +14,24 @@ shinyVisServer <- function(input, output) {
 
     user_data <- reactive({importIncucyteData(input$data_file$datapath, metric='pc', plateid=input$data_file$name)})
 
+    res_list <- reactive({
+        splitIncucyteDRCPlateData(user_pm(), user_data(), group_columns=input$group_columns_select)
+    })
+
+    list_element <- reactive({
+        if(is.null(input$metadata_row_last_clicked)) {
+            1
+        } else {
+            as.numeric(input$metadata_row_last_clicked)
+        }
+    })
+
     res <- reactive({
-        idrc_set <- splitIncucyteDRCPlateData(user_pm(), user_data(), group_columns=input$group_columns_select)
+        idrc_set <- res_list()
 
         if (class(idrc_set) == 'IncucyteDRCSetList') {
-            idrc_set <- idrc_set[[as.numeric(input$list_item)]]
+            #idrc_set <- idrc_set[[as.numeric(input$list_item)]]
+            idrc_set <- idrc_set[[list_element()]]
         }
 
         idrc_set <- idrc_set %>%
@@ -45,13 +58,22 @@ shinyVisServer <- function(input, output) {
         }
     })
 
+    metadata_df <- reactive({
+        if(class(res_list()) != 'IncucyteDRCSetList') {
+            res()$metadata
+        } else {
+            lapply(res_list(), function(x) x$metadata) %>% dplyr::bind_rows()
+        }
+    })
+
     output$plot <- renderPlot({
         plotIncucyteDRCSet(res(), grouped=TRUE)
     })
 
-    output$metadata <- renderTable({
-        res()$metadata
-    })
+    output$metadata <- DT::renderDataTable({
+        metadata_df()
+    }, filter='none', selection=list(mode = 'single', selected = 1),
+        options=list(searching=FALSE, sorting=FALSE, paging=FALSE, info=FALSE, ordering=FALSE))
 
     output$drc_data <- renderTable({
         drc_data()

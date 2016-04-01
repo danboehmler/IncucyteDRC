@@ -39,12 +39,12 @@ shinyVisUI <- function() {
                                             choices=c('growthcondition', 'celltype', 'passage', 'seedingdensity'),
                                             selected='growthcondition',
                                             multiple=TRUE,
-                                            selectize=TRUE),
-                                numericInput('list_item', 'Specify set', 1)
+                                            selectize=TRUE)
 
                                 ),
                             mainPanel(
-                                tableOutput('metadata'),
+                                helpText("Click on the table to select a dataset:"),
+                                DT::dataTableOutput('metadata'),
 
                                 plotOutput('plot')
 
