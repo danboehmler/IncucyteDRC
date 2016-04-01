@@ -2,7 +2,6 @@
 #'
 #' Provides an interactive web app for the running the IncucyteDRC workflow
 #'
-#' @param con A \code{SQLiteConnection} object to the database
 #' @return Launches an interactive Shiny application
 #' @export
 #' @import shiny

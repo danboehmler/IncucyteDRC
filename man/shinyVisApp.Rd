@@ -6,9 +6,6 @@
 \usage{
 shinyVisApp()
 }
-\arguments{
-\item{con}{A \code{SQLiteConnection} object to the database}
-}
 \value{
 Launches an interactive Shiny application
 }

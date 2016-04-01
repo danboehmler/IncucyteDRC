@@ -4,18 +4,35 @@
 #'
 #' @param input Shiny input list
 #' @param output Shiny output list
-#' @param con A \code{SQLiteConnection} object to the database
 #' @return A shiny server
 #' @export
 #' @import shiny
 shinyVisServer <- function(input, output) {
 
-    user_pm <- reactive({importPlatemapXML(input$platemap_file$datapath)})
+    user_pm <- reactive({
+        out <- try(importPlatemapXML(input$platemap_file$datapath), silent=TRUE)
+        if(class(out) == 'data.frame') {
+            return(out)
+        } else {
+            return(NULL)
+        }
+    })
 
-    user_data <- reactive({importIncucyteData(input$data_file$datapath, metric='pc', plateid=input$data_file$name)})
+    user_data <- reactive({
+        out <- try(importIncucyteData(input$data_file$datapath, metric='pc', plateid=input$data_file$name), silent=TRUE)
+        if(class(out) == 'IncucyteDRCPlateData') {
+            return(out)
+        } else {
+            return(NULL)
+        }
+    })
 
     res_list <- reactive({
-        splitIncucyteDRCPlateData(user_pm(), user_data(), group_columns=input$group_columns_select)
+        if(is.null(user_pm()) | is.null(user_data())){
+            return(NULL)
+        } else {
+            splitIncucyteDRCPlateData(user_pm(), user_data(), group_columns=input$group_columns_select)
+        }
     })
 
     list_element <- reactive({
@@ -63,6 +80,34 @@ shinyVisServer <- function(input, output) {
             res()$metadata
         } else {
             lapply(res_list(), function(x) x$metadata) %>% dplyr::bind_rows()
+        }
+    })
+
+    output$mainpage_ui <- renderUI({
+        if(is.null(res_list())) {
+            mainPanel(
+                helpText('Upload a valid platemap and data file to start')
+            )
+        } else {
+            mainPanel(
+                helpText("Click on the table to select a dataset:"),
+                DT::dataTableOutput('metadata'),
+                plotOutput('plot'))
+
+        }
+
+    })
+
+    output$datapage_ui <- renderUI({
+        if(is.null(res_list())) {
+            mainPanel(
+                helpText('Upload a valid platemap and data file to start')
+            )
+        } else {
+            mainPanel(
+                tableOutput('drc_data'),
+                downloadButton('download_drc_data', 'Download Data')
+            )
         }
     })
 

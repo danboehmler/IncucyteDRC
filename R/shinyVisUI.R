@@ -22,6 +22,7 @@ shinyVisUI <- function() {
                                                    'text/comma-separated-values',
                                                    'text/plain',
                                                    'txt')),
+                                hr(),
                                 conditionalPanel(
                                     condition = "input.cut_time_mode == false",
                                     sliderInput('cut_time_slider', 'Specify cut time', 1,300, 175)
@@ -40,16 +41,9 @@ shinyVisUI <- function() {
                                             selected='growthcondition',
                                             multiple=TRUE,
                                             selectize=TRUE)
-
                                 ),
-                            mainPanel(
-                                helpText("Click on the table to select a dataset:"),
-                                DT::dataTableOutput('metadata'),
+                            uiOutput('mainpage_ui')
 
-                                plotOutput('plot')
-
-
-                            )
                         )),
                tabPanel("Data",
                         selectInput('data_format_select', 'Select data format',
@@ -58,8 +52,8 @@ shinyVisUI <- function() {
                                     selected='dataframe',
                                     multiple=FALSE,
                                     selectize=FALSE),
-                        tableOutput('drc_data'),
-                        downloadButton('download_drc_data', 'Download Data')),
+                        uiOutput('datapage_ui')
+                        ),
                tabPanel("Help", "contents"))
 
 

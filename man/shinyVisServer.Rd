@@ -10,8 +10,6 @@ shinyVisServer(input, output)
 \item{input}{Shiny input list}
 
 \item{output}{Shiny output list}
-
-\item{con}{A \code{SQLiteConnection} object to the database}
 }
 \value{
 A shiny server
