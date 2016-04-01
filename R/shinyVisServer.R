@@ -34,12 +34,16 @@ shinyVisServer <- function(input, output) {
         } else {
             idrc_set <- calculateDRCData(idrc_set, input$cut_time_slider)
         }
-
         return(idrc_set)
-
-
-
         })
+
+    drc_data <- reactive({
+        if(input$data_format_select == 'dataframe'){
+            exportDRCDataToDataFrame(res(), add_metadata=TRUE)
+        } else {
+            exportDRCDataToPRISM(res(), add_metadata=TRUE)
+        }
+    })
 
     output$plot <- renderPlot({
         plotIncucyteDRCSet(res(), grouped=TRUE)
@@ -49,9 +53,16 @@ shinyVisServer <- function(input, output) {
         res()$metadata
     })
 
-    output$drc_data <- renderTable(({
-        exportDRCDataToDataFrame(res(), add_metadata=TRUE)
-    }))
+    output$drc_data <- renderTable({
+        drc_data()
+    })
+
+    output$download_drc_data <- downloadHandler(
+        filename = 'drc_data_download.txt',
+        content = function(file) {
+            write.table(drc_data(), file=file, sep='\t', row.names = FALSE, col.names = TRUE, na='')
+        }
+    )
 
 
 }

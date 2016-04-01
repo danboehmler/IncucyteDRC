@@ -46,12 +46,20 @@ shinyVisUI <- function() {
                             mainPanel(
                                 tableOutput('metadata'),
 
-                                plotOutput('plot'),
+                                plotOutput('plot')
 
-                                tableOutput('drc_data')
+
                             )
                         )),
-               tabPanel("tab 2", "contents"),
+               tabPanel("Data",
+                        selectInput('data_format_select', 'Select data format',
+                                    choices=c('Data Frame' = 'dataframe',
+                                              'PRISM' = 'prism'),
+                                    selected='dataframe',
+                                    multiple=FALSE,
+                                    selectize=FALSE),
+                        tableOutput('drc_data'),
+                        downloadButton('download_drc_data', 'Download Data')),
                tabPanel("Help", "contents"))
 
 
