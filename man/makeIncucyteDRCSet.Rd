@@ -4,7 +4,8 @@
 \alias{makeIncucyteDRCSet}
 \title{makeIncucyteDRCSet}
 \usage{
-makeIncucyteDRCSet(platemap, platedata, cut_time = NULL, metadata = NULL)
+makeIncucyteDRCSet(platemap, platedata, cut_time = NULL, metadata = NULL,
+  pm_warn = TRUE)
 }
 \arguments{
 \item{platemap}{Platemap dataframe containing information for just those wells required}
@@ -15,6 +16,8 @@ the platemap}
 \item{cut_time}{The time at which to extract the data for the dose response curve.  Default is NULL.}
 
 \item{metadata}{A single row data frame containing any information specific to this IncucyteDRCSet object.}
+
+\item{pm_warn}{Boolean to control platemap check warnings.  Default is TRUE.}
 }
 \value{
 IncucyteDRCSet object
@@ -32,6 +35,6 @@ test_data <- importIncucyteData(system.file(file='extdata/example_data.txt', pac
 test_pm_filtered <-  dplyr::filter(test_pm, samptype \%in\% c('C', 'S') & growthcondition == '8 x 10e4/mL')
 test_set <- makeIncucyteDRCSet(test_pm_filtered, test_data)
 
-str(test_set)
+print(test_set)
 }
 

@@ -27,6 +27,6 @@ test_data <- importIncucyteData(system.file(file='extdata/example_data.txt', pac
 
 test_list <- splitIncucyteDRCPlateData(test_pm, test_data, group_columns='growthcondition')
 
-str(test_list)
+print(test_list)
 }
 

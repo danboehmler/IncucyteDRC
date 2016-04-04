@@ -10,6 +10,7 @@
 #'  the platemap
 #' @param cut_time The time at which to extract the data for the dose response curve.  Default is NULL.
 #' @param metadata A single row data frame containing any information specific to this IncucyteDRCSet object.
+#' @param pm_warn Boolean to control platemap check warnings.  Default is TRUE.
 #'
 #' @return IncucyteDRCSet object
 #' @export
@@ -21,12 +22,17 @@
 #' test_pm_filtered <-  dplyr::filter(test_pm, samptype %in% c('C', 'S') & growthcondition == '8 x 10e4/mL')
 #' test_set <- makeIncucyteDRCSet(test_pm_filtered, test_data)
 #'
-#' str(test_set)
+#' print(test_set)
 
 
-makeIncucyteDRCSet <- function(platemap, platedata, cut_time=NULL, metadata=NULL) {
+makeIncucyteDRCSet <- function(platemap, platedata, cut_time=NULL, metadata=NULL, pm_warn=TRUE) {
 
-    stopifnot(class(platedata) == 'IncucyteDRCPlateData')
+    stopifnot(inherits(platemap, 'data.frame'))
+    stopifnot(inherits(platedata, 'IncucyteDRCPlateData'))
+
+    if(is.null(attr(platemap, 'IncucyteDRCPlatemap')) & pm_warn==TRUE) {
+        warning('Recommended that platemap data frames are parsed through importPlatemap function to check formatting')
+    }
 
     platedata$data <- platedata$data %>% dplyr::filter(wellid %in% platemap$wellid) %>% as.data.frame()
 

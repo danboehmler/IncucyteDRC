@@ -16,12 +16,13 @@ shinyVisUI <- function() {
                                           accept=c('text/csv',
                                                    'text/comma-separated-values',
                                                     'text/plain',
-                                                   '.Platemap')),
+                                                   '.Platemap',
+                                                   '.txt')),
                                 fileInput('data_file', 'Choose data file',
                                           accept=c('text/csv',
                                                    'text/comma-separated-values',
                                                    'text/plain',
-                                                   'txt')),
+                                                   '.txt')),
                                 hr(),
                                 conditionalPanel(
                                     condition = "input.cut_time_mode == false",
@@ -57,7 +58,10 @@ shinyVisUI <- function() {
                         ),
                tabPanel('EC50',
                         uiOutput('ec50page_ui')),
+               tabPanel('Platemap',
+                        uiOutput('platemap_ui')),
                tabPanel("Help", "contents"))
+
 
 
 }

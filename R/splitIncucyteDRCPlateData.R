@@ -16,13 +16,18 @@
 #'
 #' test_list <- splitIncucyteDRCPlateData(test_pm, test_data, group_columns='growthcondition')
 #'
-#' str(test_list)
+#' print(test_list)
 
 
 splitIncucyteDRCPlateData <- function(platemap, platedata, group_columns, cut_time=NULL) {
 
-    stopifnot(class(platedata) == 'IncucyteDRCPlateData')
+    stopifnot(inherits(platemap, 'data.frame'))
+    stopifnot(inherits(platedata, 'IncucyteDRCPlateData'))
     stopifnot(group_columns %in% colnames(platemap))
+
+    if(is.null(attr(platemap, 'IncucyteDRCPlatemap'))) {
+        warning('Recommended that platemap data frames are parsed through importPlatemap function to check formatting')
+    }
 
     #get rid of blanks
     platemap <- platemap %>% dplyr::filter(samptype %in% c('C', 'S'))
@@ -34,7 +39,7 @@ splitIncucyteDRCPlateData <- function(platemap, platedata, group_columns, cut_ti
     platemap_list <- split(platemap, platemap$group_idx)
 
     #lapply makeIncucyteData across list of platemaps
-    outdata <- lapply(platemap_list, function(x) makeIncucyteDRCSet(platemap = x, platedata = platedata, cut_time = cut_time))
+    outdata <- lapply(platemap_list, function(x) makeIncucyteDRCSet(platemap = x, platedata = platedata, cut_time = cut_time, pm_warn=FALSE))
 
     #lapply populateIncucyteDRCSetMetadata across the list object
     outdata <- lapply(outdata, populateIncucyteDRCSetMetadata, group_columns=group_columns)

@@ -84,6 +84,8 @@ importPlatemapXML <- function(filepath, control_cpd='DMSO') {
         dplyr::mutate(wellid = paste0(LETTERS[row], col)) %>%
         as.data.frame()
 
+    attr(platemap_df, 'IncucyteDRCPlatemap') <- TRUE
+
     message('Plate map import successful!')
     return (platemap_df)
 

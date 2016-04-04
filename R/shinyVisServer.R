@@ -10,9 +10,14 @@
 shinyVisServer <- function(input, output) {
 
     user_pm <- reactive({
-        out <- try(importPlatemapXML(input$platemap_file$datapath), silent=TRUE)
-        if(class(out) == 'data.frame') {
-            return(out)
+
+        out1 <- try(importPlatemapXML(input$platemap_file$datapath), silent=TRUE)
+        out2 <- try(importPlatemap(input$platemap_file$datapath), silent=TRUE)
+
+        if(class(out1) == 'data.frame') {
+            return(out1)
+        } else  if (class(out2) == 'data.frame') {
+            return(out2)
         } else {
             return(NULL)
         }
@@ -94,16 +99,16 @@ shinyVisServer <- function(input, output) {
     })
 
     output$mainpage_ui <- renderUI({
-        if(is.null(res_list())) {
+        if(is.null(user_pm()) & is.null(user_data())) {
             mainPanel(
                 helpText('Upload a valid platemap and data file to start')
             )
-        if(!is.null(user_pm()) & is.null(user_data())) {
+        } else if (!is.null(user_pm()) & is.null(user_data())) {
             mainPanel(
                 helpText("Platemap uploaded successfully, now upload a data file"),
-                plotOutput('platemap_plot')
+                plotOutput('platemap_plot'),
+                downloadButton('download_platemap_data', 'Download Platemap')
             )
-        }
         } else {
             mainPanel(
                 helpText("Click on the table to select a dataset:"),
@@ -141,6 +146,20 @@ shinyVisServer <- function(input, output) {
         }
     })
 
+    output$platemap_ui <- renderUI({
+        if(is.null(user_pm())) {
+            mainPanel(
+                helpText('Upload a valid platemap file to start')
+            )
+        } else {
+            mainPanel(
+                helpText("Platemap uploaded successfully"),
+                plotOutput('platemap_plot'),
+                downloadButton('download_platemap_data', 'Download Platemap')
+            )
+        }
+    })
+
     output$plot <- renderPlot({
         plotIncucyteDRCSet(res(), grouped=TRUE)
     })
@@ -148,6 +167,13 @@ shinyVisServer <- function(input, output) {
     output$platemap_plot <- renderPlot({
         plotPlatemap(user_pm())
     })
+
+    output$download_platemap_data <- downloadHandler(
+        filename = 'platemap_download.txt',
+        content = function(file) {
+            write.table(user_pm(), file=file, sep='\t', row.names = FALSE, col.names = TRUE, na='')
+        }
+    )
 
     output$metadata <- DT::renderDataTable({
         metadata_df()
