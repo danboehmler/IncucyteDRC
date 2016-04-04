@@ -58,9 +58,13 @@ shinyVisUI <- function() {
                         ),
                tabPanel('EC50',
                         uiOutput('ec50page_ui')),
-               tabPanel('Platemap',
-                        uiOutput('platemap_ui')),
-               tabPanel("Help", "contents"))
+               navbarMenu('More...',
+
+                   tabPanel('Platemap',
+                            uiOutput('platemap_ui')),
+                   tabPanel('Cut time calculation',
+                            uiOutput('cut_time_res_ui')),
+                   tabPanel("Help", "contents")))
 
 
 

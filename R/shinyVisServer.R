@@ -160,6 +160,23 @@ shinyVisServer <- function(input, output) {
         }
     })
 
+    output$cut_time_res_ui <- renderUI({
+        if(input$cut_time_mode) {
+            mainPanel(
+                helpText("Cut time algorithm details"),
+                plotOutput('cut_time_plot'),
+                tableOutput('cut_time_table')
+            )
+        } else {
+            mainPanel(
+                helpText('Cut time calculation not enabled')
+                )
+
+        }
+    })
+
+
+
     output$plot <- renderPlot({
         plotIncucyteDRCSet(res(), grouped=TRUE)
     })
@@ -212,6 +229,14 @@ shinyVisServer <- function(input, output) {
                         file=file, sep='\t', row.names = FALSE, col.names = TRUE, na='')
         }
     )
+
+    output$cut_time_table <- renderTable({
+        t(res()$calculated_cut)
+    })
+
+    output$cut_time_plot <- renderPlot({
+        print(res()$cut_plot)
+    })
 
 
 }

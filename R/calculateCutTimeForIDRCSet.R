@@ -56,7 +56,7 @@ calculateCutTimeForIDRCSet <- function(idrc_set, baseline_time=24, no_doublings=
     calculated_cut <- calc_cut_res$calculated_cut %>%
         dplyr::mutate(group_idx=control_drc_data$group_idx[1],
                       sampleid=control_drc_data$sampleid[1],
-                      conc=control_drc_data$sampleid[1],
+                      conc=control_drc_data$conc[1],
                       concunits=control_drc_data$concunits[1]) %>%
         as.data.frame()
 
