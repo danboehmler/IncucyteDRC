@@ -98,6 +98,12 @@ shinyVisServer <- function(input, output) {
             mainPanel(
                 helpText('Upload a valid platemap and data file to start')
             )
+        if(!is.null(user_pm()) & is.null(user_data())) {
+            mainPanel(
+                helpText("Platemap uploaded successfully, now upload a data file"),
+                plotOutput('platemap_plot')
+            )
+        }
         } else {
             mainPanel(
                 helpText("Click on the table to select a dataset:"),
@@ -137,6 +143,10 @@ shinyVisServer <- function(input, output) {
 
     output$plot <- renderPlot({
         plotIncucyteDRCSet(res(), grouped=TRUE)
+    })
+
+    output$platemap_plot <- renderPlot({
+        plotPlatemap(user_pm())
     })
 
     output$metadata <- DT::renderDataTable({
