@@ -26,6 +26,11 @@
 #'
 calculateEC50 <- function(idrc_set) {
 
+    #make sure that fitDoseResponseCurve has been run
+    if(is.null(idrc_set$drc_models)) {
+        stop("Need to run fitDoseResponseCurve first to fit dose response models")
+    }
+
     #extract parameters from models filtering out NULLs
     drc_ec50 <- idrc_set$drc_models %>%
         dplyr::filter(!is.null(drc_model)) %>%

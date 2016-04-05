@@ -28,6 +28,11 @@
 #' plotDoseResponseCurve(test_drc, 'PDD00017273', native=FALSE)
 plotDoseResponseCurve <- function(idrc_set, sampleid, native=FALSE) {
 
+    #make sure that fitDoseResponseCurve has been run
+    if(is.null(idrc_set$drc_models)) {
+        stop("Need to run fitDoseResponseCurve first to fit dose response models")
+    }
+
     q_sampleid <- sampleid
 
     drc_models_filtered <- idrc_set$drc_models %>%

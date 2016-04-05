@@ -29,6 +29,11 @@
 #'
 exportEC50Data <- function(idrc_set, add_metadata=FALSE) {
 
+    #make sure that fitDoseResponseCurve has been run
+    if(is.null(idrc_set$drc_ec50)) {
+        stop("Need to run calculateEC50 function first to calculate EC50 values for the object")
+    }
+
     out_df <- idrc_set$drc_ec50
 
     if(add_metadata & is.data.frame(idrc_set$metadata)) {

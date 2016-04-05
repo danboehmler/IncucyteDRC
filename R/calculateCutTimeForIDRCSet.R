@@ -28,7 +28,7 @@
 calculateCutTimeForIDRCSet <- function(idrc_set, baseline_time=24, no_doublings=4, max_val=80) {
 
     if(is.null(idrc_set$fitted_models_grouped)) {
-        stop('Need to fit splines first using fitGrowthCurvesGrouped')
+        stop('Need to fit growth curves first using fitGrowthCurvesGrouped')
     }
 
     #baseline_time=24; no_doublings=4; max_val=80;

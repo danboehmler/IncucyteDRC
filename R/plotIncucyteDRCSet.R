@@ -23,6 +23,15 @@
 #'
 plotIncucyteDRCSet <- function(idrc_set, grouped=FALSE) {
 
+    if(grouped & is.null(idrc_set$fitted_data_grouped)) {
+        stop('Need to fit growth curves first using fitGrowthCurvesGrouped')
+    }
+
+    if(!grouped & is.null(idrc_set$fitted_data_grouped)) {
+        stop('Need to fit growth curves first using fitGrowthCurvesIndividual')
+    }
+
+
     #combine the platemap and data
     data <- idrc_set$platemap %>% dplyr::inner_join(idrc_set$platedata$data, by='wellid')
 

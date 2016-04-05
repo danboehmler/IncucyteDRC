@@ -26,6 +26,10 @@
 #' exportDRCDataToDataFrame(test_drc, include_control=TRUE, add_metadata=TRUE)
 exportDRCDataToDataFrame <- function(idrc_set, include_control=FALSE, add_metadata=FALSE) {
 
+    if(is.null(idrc_set$drc_data)) {
+        stop('Need to calculate the dose response curve data first using calculateDRCData')
+    }
+
     #get the sample data
     out_df <- idrc_set$drc_data %>%
                     dplyr::filter(samptype=='S') %>%
