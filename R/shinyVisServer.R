@@ -52,7 +52,6 @@ shinyVisServer <- function(input, output) {
         idrc_set <- res_list()
 
         if (class(idrc_set) == 'IncucyteDRCSetList') {
-            #idrc_set <- idrc_set[[as.numeric(input$list_item)]]
             idrc_set <- idrc_set[[list_element()]]
         }
 
@@ -77,11 +76,17 @@ shinyVisServer <- function(input, output) {
             calculateEC50()
     })
 
+    dotmatics_data <- reactive({
+        exportDRCDataToDotmatics(res(), user_pm())
+    })
+
     drc_data <- reactive({
         if(input$data_format_select == 'dataframe'){
             exportDRCDataToDataFrame(res(), add_metadata=TRUE, include_control = input$include_control_mode)
-        } else {
+        } else if (input$data_format_select == 'prism') {
             exportDRCDataToPRISM(res(), add_metadata=TRUE, include_control = input$include_control_mode)
+        } else {
+            dotmatics_data()$data
         }
     })
 
@@ -123,6 +128,19 @@ shinyVisServer <- function(input, output) {
         if(is.null(res_list())) {
             mainPanel(
                 helpText('Upload a valid platemap and data file to start')
+            )
+        } else if (input$data_format_select == 'dotmatics') {
+            if(class(res_list()) == 'IncucyteDRCSetList') {
+                dotmatics_warn <- span("WARNING: this doesn't work properly when there are is more than one cell growth condition in a plate", style = "color:red")
+            } else {
+                dotmatics_warn <- ''
+            }
+            mainPanel(
+                helpText(dotmatics_warn),
+                downloadButton('download_samplelist_data', 'Download Samplelist'),
+                downloadButton('download_drc_data', 'Download Data'),
+                tableOutput('samplelist_data'),
+                tableOutput('drc_data')
             )
         } else {
             mainPanel(
@@ -201,10 +219,21 @@ shinyVisServer <- function(input, output) {
         drc_data()
     })
 
+    output$samplelist_data <- renderTable({
+        dotmatics_data()$samplelist
+    })
+
     output$download_drc_data <- downloadHandler(
         filename = 'drc_data_download.txt',
         content = function(file) {
             write.table(drc_data(), file=file, sep='\t', row.names = FALSE, col.names = TRUE, na='')
+        }
+    )
+
+    output$download_samplelist_data <- downloadHandler(
+        filename = 'samplelist_data_download.txt',
+        content = function(file) {
+            write.table(dotmatics_data()$samplelist, file=file, sep='\t', row.names = FALSE, col.names = TRUE, na='')
         }
     )
 

@@ -17,6 +17,10 @@
 #'   plotPlatemap()
 plotPlatemap <- function(pm) {
 
+    if(is.null(attr(pm, 'IncucyteDRCPlatemap'))) {
+        warning('Recommended that platemap data frames are parsed through importPlatemap function to check formatting')
+    }
+
     p <- ggplot(pm, aes(y=row, x=col)) +
         geom_tile(aes(fill=samptype), colour='black') +
         geom_text(aes(label=sprintf("%s\n%s%s", sampleid, round(conc,4), concunits)), size=rel(2.5)) +
