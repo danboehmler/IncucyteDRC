@@ -64,8 +64,9 @@ shinyVisUI <- function() {
                    tabPanel('Platemap',
                             uiOutput('platemap_ui')),
                    tabPanel('Cut time calculation',
-                            uiOutput('cut_time_res_ui')),
-                   tabPanel("Help", "contents")))
+                            uiOutput('cut_time_res_ui'))
+                   ),
+               tabPanel("Help", includeHTML(system.file('doc/Overview.html', package = 'IncucyteDRC'))))
 
 
 
