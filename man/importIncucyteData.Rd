@@ -20,8 +20,14 @@ IncucyteDRCPlateData object
 Imports data exported from Incucyte Zoom software-  NEED MORE DOCUMENTATION HERE ABOUT HOW TO DO EXPORT!!
 }
 \examples{
-test_data <- importIncucyteData(system.file(file='extdata/example_data.txt', package='IncucyteDRC'), metric='pc')
-str(test_data)
-head(test_data$data)
+#dataset 1
+data_file1 <- system.file(file='extdata/example_data.txt', package='IncucyteDRC')
+test_data1 <- importIncucyteData(data_file1, metric='pc')
+test_data1
+head(test_data1$data)
+
+#dataset 2
+data_file2 <- system.file(file='extdata/example_data2.txt', package='IncucyteDRC')
+test_data2 <- importIncucyteData(data_file2, metric='pc')
 }
 

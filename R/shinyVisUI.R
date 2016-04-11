@@ -66,7 +66,8 @@ shinyVisUI <- function() {
                    tabPanel('Cut time calculation',
                             uiOutput('cut_time_res_ui'))
                    ),
-               tabPanel("Help", includeHTML(system.file('doc/Overview.html', package = 'IncucyteDRC'))))
+               tabPanel("Help", "to be populated"))
+               #tabPanel("Help", includeHTML(system.file('doc/Overview.html', package = 'IncucyteDRC'))))
 
 
 

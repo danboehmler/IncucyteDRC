@@ -7,9 +7,9 @@
 exportDRCDataToDotmatics(idrc_set_list, platemap)
 }
 \arguments{
-\item{platemap}{IncucyteDRCPlatemap object from importPlatemap or importPlatemapXML}
+\item{idrc_set_list}{IncucyteDRCSetList object}
 
-\item{idrc_set}{IncucyteDRCSet object}
+\item{platemap}{IncucyteDRCPlatemap object from importPlatemap or importPlatemapXML}
 }
 \value{
 list object with samplelist and data elements
@@ -21,12 +21,14 @@ The platemap must be provided as an IncucyteDRCPlatemap object and should corres
 contained in the IncucyteDRCSet or IncucyteDRCSetList object.
 }
 \examples{
-test_pm <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
-test_data <- importIncucyteData(system.file(file='extdata/example_data.txt', package='IncucyteDRC'), metric='pc')
+pm_file <- system.file(file='extdata/example.PlateMap', package='IncucyteDRC')
+test_pm <- importPlatemapXML(pm_file)
+data_file <- system.file(file='extdata/example_data.txt', package='IncucyteDRC')
+test_data <- importIncucyteData(data_file, metric='pc')
 
 test_drc <- splitIncucyteDRCPlateData(test_pm, test_data, group_columns='growthcondition')
 test_drc <- lapply(test_drc, fitGrowthCurvesIndividual)
-test_drc <- lapply(test_drc, fitGrowthCurvesGroup)
+test_drc <- lapply(test_drc, fitGrowthCurvesGrouped)
 test_drc <- lapply(test_drc, calculateDRCData, cut_time=100)
 print(test_drc)
 print(test_drc[[2]])

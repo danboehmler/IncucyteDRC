@@ -9,23 +9,21 @@
 #' @export
 #'
 #' @examples
-#' test_pm <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
-#' test_data <- importIncucyteData(system.file(file='extdata/example_data.txt', package='IncucyteDRC'), metric='pc')
+#' pm_file <- system.file(file='extdata/example.PlateMap', package='IncucyteDRC')
+#' test_pm <- importPlatemapXML(pm_file)
+#' data_file <- system.file(file='extdata/example_data.txt', package='IncucyteDRC')
+#' test_data <- importIncucyteData(data_file, metric='pc')
 #'
 #' test_list <- splitIncucyteDRCPlateData(test_pm, test_data, group_columns='growthcondition')
 #'
-#' str(test_list)
+#' print(test_list)
 #'
-#' test_drc <- fitGrowthCurvesIndividual(test_list[[2]])
-#' test_drc <- fitGrowthCurvesGrouped(test_drc)
-#' plotIncucyteDRCSet(test_drc)
-#' test_drc <- calculateCutTimeForIDRCSet(test_drc)
-#' test_drc <- calculateDRCData(test_drc)
-#' plotIncucyteDRCSet(test_drc)
-#' exportDRCDataToDataFrame(test_drc)
-#' test_drc <- fitDoseResponseCurve(test_drc)
-#' test_drc <- calculateEC50(test_drc)
-#' exportEC50Data(test_drc)
+#' test_idrc_set <- fitGrowthCurvesGrouped(test_list[[2]])
+#' test_idrc_set <- fitGrowthCurvesIndividual(test_idrc_set)
+#' test_idrc_set <- calculateDRCData(test_idrc_set, cut_time=100)
+#' test_idrc_set <- fitDoseResponseCurve(test_idrc_set)
+#' test_idrc_set <- calculateEC50(test_idrc_set)
+#' exportEC50Data(test_idrc_set)
 #'
 exportEC50Data <- function(idrc_set, add_metadata=FALSE) {
 

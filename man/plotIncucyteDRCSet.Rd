@@ -8,6 +8,8 @@ plotIncucyteDRCSet(idrc_set, grouped = FALSE)
 }
 \arguments{
 \item{idrc_set}{IncucyteDRCSet object}
+
+\item{grouped}{Boolean - whether the curves should be grouped or not.}
 }
 \value{
 ggplot object
@@ -16,17 +18,19 @@ ggplot object
 Plot the growth curve data from an IncucyteDRCSet object
 }
 \examples{
-test_pm <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
-test_data <- importIncucyteData(system.file(file='extdata/example_data.txt', package='IncucyteDRC'), metric='pc')
+pm_file <- system.file(file='extdata/example.PlateMap', package='IncucyteDRC')
+test_pm <- importPlatemapXML(pm_file)
+data_file <- system.file(file='extdata/example_data.txt', package='IncucyteDRC')
+test_data <- importIncucyteData(data_file, metric='pc')
 
 test_list <- splitIncucyteDRCPlateData(test_pm, test_data, group_columns='growthcondition')
 
-str(test_list)
+print(test_list)
 
-test_splines <- fitGrowthCurvesIndividual(test_list[[2]])
-test_splines <- fitGrowthCurvesGrouped(test_splines)
-plotIncucyteDRCSet(test_splines, grouped=FALSE)
-plotIncucyteDRCSet(test_splines, grouped=TRUE)
+test_idrc_set <- fitGrowthCurvesGrouped(test_list[[2]])
+test_idrc_set <- fitGrowthCurvesIndividual(test_idrc_set)
+plotIncucyteDRCSet(test_idrc_set, grouped=FALSE)
+plotIncucyteDRCSet(test_idrc_set, grouped=TRUE)
 
 }
 

@@ -7,7 +7,7 @@
 plotPlatemap(pm)
 }
 \arguments{
-\item{df}{Data frame containing platemap data}
+\item{pm}{Platemap data frame geneated by either importPlatemap or importPlatemapXML functions.}
 }
 \value{
 ggplot object
@@ -16,11 +16,12 @@ ggplot object
 Visualisation of an Incucyte platemap
 }
 \examples{
-test_pm <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
+pm_file <- system.file(file='extdata/example.PlateMap', package='IncucyteDRC')
+test_pm <- importPlatemapXML(pm_file)
 plotPlatemap(test_pm)
 
 library(magrittr)
-importPlatemapXML(system.file(file='extdata/example2.PlateMap', package='IncucyteDRC')) \%>\%
-  plotPlatemap()
+pm_file2 <- system.file(file='extdata/example2.PlateMap', package='IncucyteDRC')
+importPlatemapXML(pm_file2) \%>\% plotPlatemap()
 }
 

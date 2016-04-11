@@ -4,16 +4,19 @@
 \alias{print.IncucyteDRCPlateData}
 \title{print.IncucyteDRCPlateData}
 \usage{
-\method{print}{IncucyteDRCPlateData}(x)
+\method{print}{IncucyteDRCPlateData}(x, ...)
 }
 \arguments{
 \item{x}{IncucyteDRCPlateData object}
+
+\item{...}{Additional arguments}
 }
 \description{
 Prints information on an IncucyteDRCPlateData object
 }
 \examples{
-test_data <- importIncucyteData(system.file(file='extdata/example_data.txt', package='IncucyteDRC'), metric='pc')
+data_file <- system.file(file='extdata/example_data.txt', package='IncucyteDRC')
+test_data <- importIncucyteData(data_file, metric='pc')
 print(test_data)
 }
 
