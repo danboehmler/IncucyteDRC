@@ -11,7 +11,7 @@ plotDoseResponseCurve(idrc_set, sampleid, native = FALSE)
 
 \item{sampleid}{The sample id to plot}
 
-\item{native}{A boolean whether or not to use the native \code{\link[drc]{plot.drc}} function}
+\item{native}{deprecated}
 }
 \value{
 a ggplot2 object (if native is FALSE) or NULL but draws to open graphics object (if native is TRUE)
@@ -34,7 +34,6 @@ test_idrc_set <- fitGrowthCurvesIndividual(test_idrc_set)
 test_idrc_set <- calculateDRCData(test_idrc_set, cut_time=100)
 test_idrc_set <- fitDoseResponseCurve(test_idrc_set)
 test_idrc_set <- calculateEC50(test_idrc_set)
-plotDoseResponseCurve(test_idrc_set, 'PDD00017273', native=TRUE)
 plotDoseResponseCurve(test_idrc_set, 'PDD00017273', native=FALSE)
 }
 

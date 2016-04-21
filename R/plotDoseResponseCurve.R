@@ -4,7 +4,7 @@
 #'
 #' @param idrc_set IncucyteDRCSet object
 #' @param sampleid The sample id to plot
-#' @param native A boolean whether or not to use the native \code{\link[drc]{plot.drc}} function
+#' @param native deprecated
 #'
 #' @return a ggplot2 object (if native is FALSE) or NULL but draws to open graphics object (if native is TRUE)
 #' @export
@@ -24,7 +24,6 @@
 #' test_idrc_set <- calculateDRCData(test_idrc_set, cut_time=100)
 #' test_idrc_set <- fitDoseResponseCurve(test_idrc_set)
 #' test_idrc_set <- calculateEC50(test_idrc_set)
-#' plotDoseResponseCurve(test_idrc_set, 'PDD00017273', native=TRUE)
 #' plotDoseResponseCurve(test_idrc_set, 'PDD00017273', native=FALSE)
 plotDoseResponseCurve <- function(idrc_set, sampleid, native=FALSE) {
 
@@ -43,14 +42,6 @@ plotDoseResponseCurve <- function(idrc_set, sampleid, native=FALSE) {
 
     EC50val <- drc::ED(drc_model,50, display=F)[1]
 
-    #if native is TRUE then just use the drc native plotting function
-    if(native) {
-        drc:::plot.drc(drc_model, type='all', broken=TRUE, main=sampleid)
-        abline(v=EC50val, col='red', lty='dashed')
-        return()
-    }
-
-    #if not, continue and return a ggplot object
     #extract the generated function from the curve fit and make the curve
     drc_model_func <- drc_model$curve[[1]]
     conc_range <- unique(drc_model$dataList$dose)

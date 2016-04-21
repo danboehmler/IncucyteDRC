@@ -17,7 +17,7 @@
 #' head(test_pm_df)
 importPlatemap <- function(input, control_cpd='DMSO') {
 
-    if('data.frame' %in% class(input)) {
+    if(is.data.frame(input)) {
         message("Using data frame as an input")
         platemap_df <- input
     } else if(file.exists(input)) {
@@ -41,6 +41,7 @@ importPlatemap <- function(input, control_cpd='DMSO') {
     }
 
     attr(platemap_df, 'IncucyteDRCPlatemap') <- TRUE
+    #class(platemap_df) <- c('IncucyteDRCPlatemap', class(platemap_df))
 
     message('Plate map import successful!')
     return (platemap_df)
