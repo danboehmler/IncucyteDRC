@@ -1,0 +1,26 @@
+---
+title: "Exporting From Incucyte Zoom Software"
+author: "Phil Chapman"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette: 
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Exporting From Incucyte Zoom Software}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Once the Incucyte Zoom software has finished processing the image data, select Phase Object Confluence (Percent) and ensure that Time Plot is selected.  In the Region drop down select All Wells and ensure that the data is not averaged by selecting None from the Group drop down.  Then select an appropriate time range and click on the Data Export button:
+
+<img src="IncucyteZoomExport1.jpg" width="600px" />
+
+In the Export Metrics dialogue box, select 'Show each scan as a single row in one large table' and the 'Column by column' option.  Destination can either be 'Clipboard' or 'All scans in one file'.  Leave Other Options blank and click 'Export'.
+
+<img src="IncucyteZoomExport2.jpg" width="300px" />
+
+The data file should look like the example below.  Note that the exact number of lines before the data starts is not critical, since the `importIncucyteData` function will identify the start of the data by looking for a line starting with Date.  It is important that the well identifiers are in the form A1 since these are used to merge the data with the platemap. 
+
+<img src="IncucyteZoomExport3.png" width="600px" />
+
+

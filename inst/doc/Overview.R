@@ -6,6 +6,9 @@ library(IncucyteDRC)
 test_pm <- importPlatemapXML(system.file(file='extdata/example.PlateMap', package='IncucyteDRC'))
 head(test_pm)
 
+## ----fig.width=10, fig.height=6, dpi=70----------------------------------
+plotPlatemap(test_pm)
+
 ## ------------------------------------------------------------------------
 test_data <- importIncucyteData(system.file(file='extdata/example_data.txt', package='IncucyteDRC'), metric='pc')
 names(test_data)
