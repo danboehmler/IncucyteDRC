@@ -267,5 +267,20 @@ shinyVisServer <- function(input, output) {
         print(res()$cut_plot)
     })
 
+    output$help_ui <- renderUI({
+        if(input$help_select == 'none') {
+            helpText('Click on a drop down to select help')
+        } else if (input$help_select == 'overview') {
+            div(includeHTML(system.file('doc/Overview.html', package = 'IncucyteDRC')))
+        } else if (input$help_select == 'zoom') {
+            div(includeHTML(system.file('doc/IncucyteZoomExport.html', package = 'IncucyteDRC')))
+        } else if (input$help_select == 'video') {
+            fluidRow(helpText('View the video below to find out more about this web app:'),
+                     tags$iframe(width="800", height="600",
+                                 src="http://www.youtube.com/embed/EQzeKefmZVw?autoplay=0"))
+        }
+
+    })
+
 
 }

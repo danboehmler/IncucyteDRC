@@ -66,8 +66,17 @@ shinyVisUI <- function() {
                    tabPanel('Cut time calculation',
                             uiOutput('cut_time_res_ui'))
                    ),
-               tabPanel("Help", "to be populated"))
-               #tabPanel("Help", includeHTML(system.file('doc/Overview.html', package = 'IncucyteDRC'))))
+               tabPanel("Help",
+                        selectInput('help_select', 'Select help vignette',
+                                    choices=c('None' = 'none',
+                                              'Overview Vignette' = 'overview',
+                                              'Export from Incucyte Zoom' = 'zoom',
+                                              'Video Tutorial' = 'video'),
+                                    selected='none',
+                                    multiple=FALSE,
+                                    selectize=FALSE),
+                        uiOutput('help_ui')))
+
 
 
 
