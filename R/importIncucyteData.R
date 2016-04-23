@@ -6,6 +6,7 @@
 #' @param metric Metric must be either pc (percent confluence) or ca (confluence area).  Default is pc.
 #' @param plateid An identifier for the plate.  If set to NULL then filename used as default
 #'
+#' @importFrom utils head read.table write.table
 #' @return IncucyteDRCPlateData object
 #' @export
 #'

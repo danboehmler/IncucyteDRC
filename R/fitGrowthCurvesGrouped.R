@@ -5,6 +5,7 @@
 #' @param idrc_set IncucyteDRCSet object
 #'
 #' @return IncucyteDRCSet object
+#' @importFrom stats loess loess.control predict coef
 #' @export
 #'
 #' @examples
