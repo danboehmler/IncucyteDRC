@@ -23,6 +23,7 @@ shinyVisUI <- function() {
                                                    'text/comma-separated-values',
                                                    'text/plain',
                                                    '.txt')),
+                                helpText(a('Get example data', href='http://github.com/chapmandu2/IncucyteDRC/tree/master/inst/extdata')),
                                 hr(),
                                 conditionalPanel(
                                     condition = "input.cut_time_mode == false",

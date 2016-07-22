@@ -17,7 +17,7 @@ importIncucyteData(filepath, metric = "pc", plateid = basename(filepath))
 IncucyteDRCPlateData object
 }
 \description{
-Imports data exported from Incucyte Zoom software-  NEED MORE DOCUMENTATION HERE ABOUT HOW TO DO EXPORT!!
+Imports data exported from Incucyte Zoom software.  See the IncucyteZoomExport vignette for more details.
 }
 \examples{
 #dataset 1
