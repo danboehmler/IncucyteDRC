@@ -3,6 +3,7 @@
 #' Function to fit splines to the growth curve data in an IncucyteDRCSet object
 #'
 #' @param idrc_set IncucyteDRCSet object
+#' @param span Set the span to be used in the curve fit.  Default 0.3.
 #'
 #' @return IncucyteDRCSet object
 #' @importFrom stats loess loess.control predict coef
@@ -20,7 +21,7 @@
 #'
 #' test_idrc_set <- fitGrowthCurvesIndividual(test_list[[2]])
 #'
-fitGrowthCurvesIndividual <- function(idrc_set) {
+fitGrowthCurvesIndividual <- function(idrc_set, span=0.3) {
 
     #combine the platemap and data
     data <- idrc_set$platemap %>% dplyr::inner_join(idrc_set$platedata$data, by='wellid')
@@ -28,7 +29,7 @@ fitGrowthCurvesIndividual <- function(idrc_set) {
     #fit the splines
     fitted_models <- data %>%
         dplyr::group_by(wellid) %>%
-        dplyr::do(gc_model=loess (value ~ elapsed  , ., span=0.3, control=loess.control(surface='direct')))
+        dplyr::do(gc_model=loess (value ~ elapsed  , ., span=span, control=loess.control(surface='direct')))
 
     #establish the data range
     data_range <- seq(from=min(data$elapsed, na.rm=TRUE), to=max(data$elapsed, na.rm = TRUE), by = 1)

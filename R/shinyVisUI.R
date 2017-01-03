@@ -35,6 +35,7 @@ shinyVisUI <- function() {
                                     sliderInput('max_val_slider', 'Specify maximum value', 20,100, 80),
                                     sliderInput('no_doublings_slider', 'Specify # doublings', 1,6, 4, 0.1)
                                     ),
+                                sliderInput('span_slider', 'Specify span parameter', 0,1,0.3),
                                 checkboxInput('cut_time_mode', 'Calculate cut time', value=FALSE),
                                 checkboxInput('include_control_mode', 'Include control data in dose response', value=FALSE),
 

@@ -4,10 +4,12 @@
 \alias{fitGrowthCurvesIndividual}
 \title{fitGrowthCurvesIndividual}
 \usage{
-fitGrowthCurvesIndividual(idrc_set)
+fitGrowthCurvesIndividual(idrc_set, span = 0.3)
 }
 \arguments{
 \item{idrc_set}{IncucyteDRCSet object}
+
+\item{span}{Set the span to be used in the curve fit.  Default 0.3.}
 }
 \value{
 IncucyteDRCSet object

@@ -56,8 +56,8 @@ shinyVisServer <- function(input, output) {
         }
 
         idrc_set <- idrc_set %>%
-            fitGrowthCurvesGrouped() %>%
-            fitGrowthCurvesIndividual()
+            fitGrowthCurvesGrouped(span=input$span_slider) %>%
+            fitGrowthCurvesIndividual(span=input$span_slider)
 
         if (input$cut_time_mode) {
                 idrc_set <- idrc_set %>%
@@ -261,7 +261,7 @@ shinyVisServer <- function(input, output) {
 
     output$cut_time_table <- renderTable({
         t(res()$calculated_cut)
-    })
+    }, rownames=TRUE)
 
     output$cut_time_plot <- renderPlot({
         print(res()$cut_plot)
