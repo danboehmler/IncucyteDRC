@@ -65,7 +65,3 @@ exportDRCDataToDataFrame <- function(idrc_set, include_control=FALSE, add_metada
 
     return(as.data.frame(out_df))
 }
-
-    return(as.data.frame(out_df))
-
-}
