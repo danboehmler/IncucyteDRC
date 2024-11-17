@@ -22,7 +22,6 @@
 
 
 splitIncucyteDRCPlateData <- function(platemap, platedata, group_columns, cut_time=NULL) {
-
     stopifnot(inherits(platemap, 'data.frame'))
     stopifnot(inherits(platedata, 'IncucyteDRCPlateData'))
     stopifnot(group_columns %in% colnames(platemap))
@@ -35,7 +34,10 @@ splitIncucyteDRCPlateData <- function(platemap, platedata, group_columns, cut_ti
     platemap <- platemap %>% dplyr::filter(samptype %in% c('C', 'S'))
 
     #generate group ids using group_columns
-    platemap <-  platemap %>%  dplyr::mutate(group_idx = dplyr::group_indices_(platemap, .dots=group_columns) )
+    platemap <- platemap %>% 
+        dplyr::group_by(across(all_of(group_columns))) %>%
+        dplyr::mutate(group_idx = dplyr::cur_group_id()) %>%
+        dplyr::ungroup()
 
     #split platemap based on group_idx
     platemap_list <- split(platemap, platemap$group_idx)
@@ -54,5 +56,4 @@ splitIncucyteDRCPlateData <- function(platemap, platedata, group_columns, cut_ti
     }
 
     return(outdata)
-
 }
