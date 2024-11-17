@@ -25,16 +25,16 @@
 #' exportDRCDataToDataFrame(test_idrc_set)
 #' exportDRCDataToDataFrame(test_idrc_set, include_control=TRUE)
 #' exportDRCDataToDataFrame(test_idrc_set, include_control=TRUE, add_metadata=TRUE)
+#' @importFrom dplyr row_number
 exportDRCDataToDataFrame <- function(idrc_set, include_control=FALSE, add_metadata=FALSE) {
-
     if(is.null(idrc_set$drc_data)) {
         stop('Need to calculate the dose response curve data first using calculateDRCData')
     }
 
     #get the sample data
     out_df <- idrc_set$drc_data %>%
-                    dplyr::filter(samptype=='S') %>%
-                    dplyr::transmute(sampleid, conc, value=cut_val)
+        dplyr::filter(samptype=='S') %>%
+        dplyr::transmute(sampleid, conc, value=cut_val)
 
     if(include_control) {
         #get the control data and wrangle it to look like zero conc data for each sample
@@ -42,7 +42,7 @@ exportDRCDataToDataFrame <- function(idrc_set, include_control=FALSE, add_metada
             dplyr::filter(samptype=='C') %>%
             dplyr::transmute(conc, value=cut_val)
 
-        if(nrow(ctrl_df) ==0 )  stop('No control data - check your platemap configuration or set the include_control parameter to FALSE')
+        if(nrow(ctrl_df) == 0) stop('No control data - check your platemap configuration or set the include_control parameter to FALSE')
 
         ctrl_df <- ctrl_df %>%
             merge(y=unique(out_df$sampleid)) %>%
@@ -54,14 +54,17 @@ exportDRCDataToDataFrame <- function(idrc_set, include_control=FALSE, add_metada
     #add a replicate number
     out_df <- out_df %>%
         dplyr::group_by(sampleid, conc) %>%
-        dplyr::mutate(idx=row_number()) %>%
-        dplyr::ungroup()  %>%
+        dplyr::mutate(idx=dplyr::row_number()) %>% 
+        dplyr::ungroup() %>%
         as.data.frame()
 
     #add metadata if needed
     if(add_metadata & is.data.frame(idrc_set$metadata)) {
         out_df <- merge(out_df, idrc_set$metadata)
     }
+
+    return(as.data.frame(out_df))
+}
 
     return(as.data.frame(out_df))
 
