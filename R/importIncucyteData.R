@@ -12,61 +12,45 @@
 importIncucyteData <- function(filepath, metric='pc', plateid=basename(filepath)) {
     message(sprintf("Getting %s data for plate %s from:\n%s", metric, plateid, filepath))
 
-    #check that the metric type is valid
     if (!(metric %in% c('pc','ca'))) 
         stop('metric must be either pc (percent confluence) or ca (confluence area)')
 
-    # Read in the file as lines to examine structure
+    # Read all lines
     lines <- readLines(filepath)
     
-    # Function to find the data start row
-    find_data_start <- function(lines) {
-        # Look for either Date Time or Elapsed in header
-        date_rows <- grep("^Date.Time|^Date Time", lines, perl=TRUE)
-        if (length(date_rows) == 0) {
-            stop('Could not find data header. Please check input file format')
-        }
-        return(date_rows[1])
-    }
+    # Find data start - look for Elapsed header
+    start_row <- grep("^Date.Time|^Date Time|Elapsed", lines, perl=TRUE)[1]
+    if (is.na(start_row)) stop("Could not find data header")
     
-    # Get the starting row of data
-    start_row <- find_data_start(lines)
+    # Read data
+    df <- read.table(filepath, header=TRUE, sep='\t', skip=start_row-1, 
+                    stringsAsFactors=FALSE, check.names=FALSE,
+                    colClasses='character') # Read all as character first
     
-    # Read the data with appropriate handling for both formats
-    data_df <- try({
-        # First try reading with tab separator
-        df <- read.table(filepath, header=TRUE, sep='\t', skip=start_row-1, 
-                        stringsAsFactors=FALSE, check.names=FALSE)
-        
-        # Identify the time columns
-        time_cols <- grep("^Date.Time$|^Date Time$|Elapsed", names(df), value=TRUE)
-        
-        # Extract elapsed time and reshape the data
-        elapsed_data <- df[,"Elapsed"]
-        
-        # Remove the time columns
-        df <- df[,!names(df) %in% time_cols]
-        
-        # Convert to long format
-        result <- tidyr::gather(data.frame(elapsed=elapsed_data, df), 
-                              wellid, value, -elapsed)
-        
-        # Clean up well IDs for new format - extract just the well identifier if needed
-        if (any(grepl(",", result$wellid))) {
-            # For new format, take everything before the first comma or space
-            result$wellid <- gsub("^([^, ]+).*", "\\1", result$wellid)
-        }
-        
-        result
-    })
+    # Extract and convert elapsed time 
+    elapsed_col <- grep("Elapsed", names(df), value=TRUE)
+    elapsed_data <- as.numeric(df[[elapsed_col]])
     
-    if (inherits(data_df, "try-error")) {
-        stop("Failed to parse data file. Please check format.")
-    }
-
-    # Create output object
+    # Remove time columns
+    time_cols <- grep("^Date.Time$|^Date Time$|Elapsed", names(df))
+    df <- df[,-time_cols, drop=FALSE]
+    
+    # Gather to long format
+    result <- tidyr::gather(data.frame(elapsed=elapsed_data, df), 
+                          wellid, value, -elapsed)
+    
+    # Clean well IDs and convert values to numeric
+    result$wellid <- gsub("^([^, ]+).*", "\\1", result$wellid)
+    result$value <- as.numeric(result$value)
+    
+    # Remove any NA rows
+    result <- result[!is.na(result$elapsed) & !is.na(result$value),]
+    
+    # Ensure we have data
+    if (nrow(result) == 0) stop("No valid data found after processing")
+    
     output <- list(
-        data = as.data.frame(data_df),
+        data = as.data.frame(result),
         metric = metric,
         plateid = plateid
     )
